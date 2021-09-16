@@ -1,8 +1,7 @@
 import { Box, Flex, Stack } from '@chakra-ui/react';
 import { css } from '@emotion/react';
 import { Logo } from '@guardian/src-ed-logo';
-import { brand, space } from '@guardian/src-foundations';
-import { from } from '@guardian/src-foundations/mq';
+import { brand } from '@guardian/src-foundations';
 import { Container } from '@guardian/src-layout';
 
 export const Header: React.FC = () => (

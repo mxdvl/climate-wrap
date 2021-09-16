@@ -29,10 +29,10 @@ export const App = (): JSX.Element => {
 	});
 
 	const steps = [
-		{ label: 'Social', content: Social },
-		{ label: 'Spending', content: Spending },
-		{ label: 'Travel', content: Travel },
-		{ label: 'Overview', content: Overview },
+		{ label: 'Social', content: <Social /> },
+		{ label: 'Spending', content: <Spending /> },
+		{ label: 'Travel', content: <Travel /> },
+		{ label: 'Overview', content: <Overview /> },
 	];
 
 	const backDisabled = activeStep === 0;
@@ -44,6 +44,20 @@ export const App = (): JSX.Element => {
 					<Stack direction="column" spacing="8">
 						<Header />
 						<Container>
+							<HStack>
+								<Button
+									onClick={prevStep}
+									disabled={backDisabled}
+								>
+									Back
+								</Button>
+								<Button
+									onClick={nextStep}
+									disabled={nextDisabled}
+								>
+									Next
+								</Button>
+							</HStack>
 							<Steps activeStep={activeStep}>
 								{steps.map(({ label, content }) => (
 									<Step label={label} key={label}>
@@ -52,14 +66,6 @@ export const App = (): JSX.Element => {
 								))}
 							</Steps>
 						</Container>
-						<HStack>
-							<Button onClick={prevStep} disabled={backDisabled}>
-								Back
-							</Button>
-							<Button onClick={nextStep} disabled={nextDisabled}>
-								Next
-							</Button>
-						</HStack>
 					</Stack>
 				</div>
 			</Router>
