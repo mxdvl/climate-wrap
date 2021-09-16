@@ -1,18 +1,22 @@
 import "./App.css";
+import { ChakraProvider } from "@chakra-ui/react";
 import { Overview } from "./sections/Overview";
 import { Travel } from "./sections/Travel";
+// 1. import `ChakraProvider` component
 
 function App() {
 	return (
-		<div className="App">
-			<header className="App-header">HEADER HERE</header>
+		<ChakraProvider>
+			<div className="App">
+				<header className="App-header">HEADER HERE</header>
 
-			<Overview />
+				<Overview />
 
-			<Travel />
+				<Travel />
 
-			{/* etc */}
-		</div>
+				{/* etc */}
+			</div>
+		</ChakraProvider>
 	);
 }
 

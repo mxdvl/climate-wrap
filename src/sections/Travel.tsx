@@ -1,1 +1,1 @@
-export const Travel = ({}) => <div>TRAVEL section</div>;
+export const Travel = (): JSX.Element => <div>TRAVEL section</div>;
