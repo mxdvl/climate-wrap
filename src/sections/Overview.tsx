@@ -1,4 +1,4 @@
-const sections = ["Travel", "Community", "Home", "Spending", "Social"];
+const sections = ['Travel', 'Community', 'Home', 'Spending', 'Social'];
 
 export const Overview = (): JSX.Element => (
 	<div>
