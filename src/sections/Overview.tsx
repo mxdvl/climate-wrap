@@ -9,49 +9,9 @@ import {
 	Wrap,
 	WrapItem,
 } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
-
-type Section = {
-	name: string;
-	colour: string;
-	emoji: string;
-	description: string;
-};
-
-type SectionType = 'travel' | 'community' | 'home' | 'spending' | 'social';
-
-const sections: Record<SectionType, Section> = {
-	travel: {
-		name: 'Travel',
-		description: 'Communting, holidays, vehicles',
-		colour: theme.colors.cyan[100],
-		emoji: '✈️',
-	},
-	community: {
-		name: 'Community',
-		description: 'Local politics, actions together',
-		colour: theme.colors.teal[100],
-		emoji: '💬',
-	},
-	home: {
-		name: 'Home',
-		colour: theme.colors.pink[100],
-		description: 'Housing, energy sources',
-		emoji: '🏡',
-	},
-	spending: {
-		name: 'Spending',
-		description: 'Stuff you own or buy',
-		colour: theme.colors.white,
-		emoji: '💸',
-	},
-	social: {
-		name: 'Social',
-		emoji: '👪',
-		description: 'Family size, pets, etc.',
-		colour: theme.colors.orange[100],
-	},
-};
+import { useState } from 'react';
+import type { Section, SectionType } from './Sections';
+import { sections } from './Sections';
 
 type Consumptions = Record<SectionType, number>;
 
@@ -61,6 +21,7 @@ const defaultConsumptions: Consumptions = {
 	spending: 500,
 	social: 1200,
 	community: 0,
+	overview: 0,
 };
 
 const getTotal = (consumptions: Consumptions) => {
@@ -93,8 +54,8 @@ export const Overview = (): JSX.Element => {
 				{Object.entries(sections).map((entry) => {
 					const [id, section] = entry as [SectionType, Section];
 					const consumption = consumptions[id];
-					const width = `${1.8 * 100 * (consumption / total)}vw`;
-					const height = '40vh';
+					const width = `${1.8 * 100 * (consumption / total)}%`;
+					const height = '40%';
 					const order =
 						Object.values(consumptions)
 							.filter((v) => v > 0)
@@ -102,14 +63,20 @@ export const Overview = (): JSX.Element => {
 							.indexOf(consumption) + 1;
 
 					if (id == 'community') return;
+					if (id === 'overview') return;
 
 					return (
-						<WrapItem key={id} order={order === 1 ? -1 : order % 4}>
+						<WrapItem
+							key={id}
+							order={order === 1 ? -1 : order % 4}
+							width={width}
+							height={height}
+						>
 							<Box
 								padding={1}
 								margin={1}
-								width={width}
-								height={height}
+								width="100%"
+								height="100%"
 								background={section.colour}
 								flexWrap="wrap"
 							>

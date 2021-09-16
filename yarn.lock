@@ -1944,6 +1944,13 @@
   resolved "https://registry.yarnpkg.com/@guardian/src-brand/-/src-brand-3.9.0.tgz#f90d7a68671d3d699107d2c8f7d550722925fc5c"
   integrity sha512-Ek/1BcUfyquhg99+kVAAenj7yS4Q5p6Q8mpSyNV8sl+PyIBVfCUSAA1Chi1pflEjxJH4PGtHlAM43MBaW18JyQ==
 
+"@guardian/src-button@^3.9.0":
+  version "3.9.0"
+  resolved "https://registry.yarnpkg.com/@guardian/src-button/-/src-button-3.9.0.tgz#566a6d1b559c7bf6fed60fc7b6cb5a53b270246e"
+  integrity sha512-8li8HJjAT0Yo07bDnSIulnLcDfo9U+zrEin60opMWt4viokDSndxDTH43n0h9590XxxKBpe94rSSHCaWhEecQg==
+  dependencies:
+    "@guardian/src-helpers" "^3.9.0"
+
 "@guardian/src-ed-logo@^3.9.0":
   version "3.9.0"
   resolved "https://registry.yarnpkg.com/@guardian/src-ed-logo/-/src-ed-logo-3.9.0.tgz#d8928a367d2ea55920e8474e220a096d09c6edf9"
