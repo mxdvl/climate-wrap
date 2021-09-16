@@ -1,14 +1,23 @@
-import './App.css';
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider, extendTheme, Heading } from '@chakra-ui/react';
 import { Overview } from './sections/Overview';
 import { Travel } from './sections/Travel';
-// 1. import `ChakraProvider` component
+
+const theme = extendTheme({
+	colors: {
+		brand: {
+			100: '#f7fafc',
+			900: '#1a202c',
+		},
+	},
+});
 
 export const App = (): JSX.Element => {
 	return (
-		<ChakraProvider>
+		<ChakraProvider theme={theme}>
 			<div className="App">
-				<header className="App-header">HEADER HERE</header>
+				<Heading as="h3" textAlign="center">
+					HEADER HERE
+				</Heading>
 
 				<Overview />
 
