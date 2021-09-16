@@ -1,5 +1,6 @@
 import "./App.css";
 import { Overview } from "./sections/Overview";
+import { Travel } from "./sections/Travel";
 
 function App() {
 	return (
@@ -7,6 +8,10 @@ function App() {
 			<header className="App-header">HEADER HERE</header>
 
 			<Overview />
+
+			<Travel />
+
+			{/* etc */}
 		</div>
 	);
 }
