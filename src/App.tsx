@@ -1,6 +1,5 @@
 import {
 	Box,
-	Button,
 	ChakraProvider,
 	extendTheme,
 	Flex,
@@ -17,7 +16,7 @@ import {
 import { Container } from '@guardian/src-layout';
 import { Step, Steps, StepsStyleConfig, useSteps } from 'chakra-ui-steps';
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { Header } from './components/Header';
 import { FontFamily } from './fonts/Font';
 import { Fonts } from './fonts/fonts';
@@ -46,6 +45,24 @@ export const App = (): JSX.Element => {
 	const { nextStep, prevStep, setStep, reset, activeStep } = useSteps({
 		initialStep: 0,
 	});
+	const location = useLocation();
+	const history = useHistory();
+
+	const sections = Object.values(sectionDetails);
+	const sectionKeys = Object.keys(sectionDetails);
+
+	// Set the step to the loaded path.
+	React.useEffect(() => {
+		const path = location.pathname.split('/')[1];
+		const indexOfPath = sectionKeys.indexOf(path);
+		const step = indexOfPath > -1 ? indexOfPath : 0;
+		setStep(step);
+	}, []);
+
+	React.useEffect(() => {
+		const route = sectionKeys[activeStep];
+		history.push(`/${route}`);
+	}, [activeStep]);
 
 	const stepComponents: Record<string, React.ReactNode> = {
 		Social: <Social />,
@@ -56,7 +73,6 @@ export const App = (): JSX.Element => {
 		Community: <Community />,
 	};
 
-	const sections = Object.values(sectionDetails);
 	const backDisabled = activeStep === 0;
 	const nextDisabled = activeStep === sections.length - 1;
 
@@ -64,70 +80,63 @@ export const App = (): JSX.Element => {
 		<ChakraProvider theme={theme}>
 			<Fonts />
 			<CarbonEmissionsStateProvider>
-				<Router>
-					<Stack direction="column" spacing="8">
-						<Header />
-						<Container>
-							<Box height="70vh">
-								<Steps
-									activeStep={activeStep}
-									colorScheme="blue"
-								>
-									{sections.map(({ emoji, name }) => (
-										<Step
-											label={name}
-											key={name}
-											icon={() => <span>{emoji}</span>}
-										>
-											<Flex direction="column" h="100%">
-												<Flex>
-													{stepComponents[name]}
-												</Flex>
-												<HStack
-													marginTop="auto"
-													alignSelf="center"
-													spacing="8"
+				<Stack direction="column" spacing="8">
+					<Header />
+					<Container>
+						<Box height="70vh">
+							<Steps activeStep={activeStep} colorScheme="blue">
+								{sections.map(({ emoji, name }) => (
+									<Step
+										label={name}
+										key={name}
+										icon={() => <span>{emoji}</span>}
+									>
+										<Flex direction="column" h="100%">
+											<Flex>{stepComponents[name]}</Flex>
+											<HStack
+												marginTop="auto"
+												alignSelf="center"
+												spacing="8"
+											>
+												<LinkButton
+													cssOverrides={css`
+														visibility: ${!backDisabled
+															? 'visible'
+															: 'hidden'};
+													`}
+													onClick={prevStep}
+													iconSide="left"
+													nudgeIcon
+													icon={
+														<SvgArrowLeftStraight />
+													}
 												>
-													<LinkButton
-														cssOverrides={css`
-															visibility: ${!backDisabled
-																? 'visible'
-																: 'hidden'};
-														`}
-														onClick={prevStep}
-														iconSide="left"
-														nudgeIcon
-														icon={
-															<SvgArrowLeftStraight />
-														}
-													>
-														Back
-													</LinkButton>
+													Back
+												</LinkButton>
 
-													<LinkButton
-														cssOverrides={css`
-															visibility: ${!nextDisabled
-																? 'visible'
-																: 'hidden'};
-														`}
-														onClick={nextStep}
-														iconSide="right"
-														nudgeIcon
-														icon={
-															<SvgArrowRightStraight />
-														}
-													>
-														Next
-													</LinkButton>
-												</HStack>
-											</Flex>
-										</Step>
-									))}
-								</Steps>
-							</Box>
-						</Container>
-					</Stack>
-				</Router>
+												<LinkButton
+													cssOverrides={css`
+														visibility: ${!nextDisabled
+															? 'visible'
+															: 'hidden'};
+													`}
+													onClick={nextStep}
+													iconSide="right"
+													nudgeIcon
+													icon={
+														<SvgArrowRightStraight />
+													}
+												>
+													Next
+												</LinkButton>
+											</HStack>
+										</Flex>
+									</Step>
+								))}
+							</Steps>
+						</Box>
+					</Container>
+				</Stack>
 			</CarbonEmissionsStateProvider>
 		</ChakraProvider>
 	);
