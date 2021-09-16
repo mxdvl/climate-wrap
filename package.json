@@ -24,12 +24,13 @@
     "typescript": "^4.4.3",
     "web-vitals": "^1.0.1"
   },
+  "prettier": "@guardian/prettier",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "prettier . --write"
+    "lint": "eslint src"
   },
   "eslintConfig": {
     "extends": [

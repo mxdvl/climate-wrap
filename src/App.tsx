@@ -1,8 +1,9 @@
 import { Button, ChakraProvider, Stack } from "@chakra-ui/react";
 import { Link, Route, BrowserRouter as Router, Switch } from "react-router-dom";
-import { Overview } from "./sections/Overview";
-import { Travel } from "./sections/Travel";
-const App = () => {
+import { Overview } from './sections/Overview';
+import { Travel } from './sections/Travel';
+
+export const App = (): JSX.Element => {
 	return (
 		<ChakraProvider>
 			<Router>
@@ -44,5 +45,3 @@ const App = () => {
 		</ChakraProvider>
 	);
 };
-
-export default App;
