@@ -20,7 +20,7 @@ type Section = {
 
 type SectionType = 'travel' | 'community' | 'home' | 'spending' | 'social';
 
-const sections: Record<SectionType, Section> = {
+export const sections: Record<SectionType, Section> = {
 	travel: {
 		name: 'Travel',
 		description: 'Communting, holidays, vehicles',
