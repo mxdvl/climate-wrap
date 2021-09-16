@@ -20,12 +20,11 @@ const carbonPerKm = {
 export const Travel = (): JSX.Element => {
 	const { state, setState } = React.useContext(CarbonEmissionsContext);
 	const total = Object.values(state.travel).reduce((a, b) => a + b, 0);
-	const emoji = sections.travel.emoji;
 	return (
 		<Stack spacing="4" mt="4">
 			<Box>
-				<Heading as="h2" size="3xl">
-					Travel {emoji}
+				<Heading as="h2" size="3xl" textAlign="center">
+					Travel
 				</Heading>
 				<p>
 					{total.toFixed(1)} kg CO<sub>2</sub> / year.

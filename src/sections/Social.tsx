@@ -6,8 +6,8 @@ export const Social = (): JSX.Element => {
 	return (
 		<Stack spacing="4" mt="4">
 			<Box>
-				<Heading as="h2" size="3xl">
-					Social {emoji}
+				<Heading as="h2" size="3xl" textAlign="center">
+					Social
 				</Heading>
 			</Box>
 		</Stack>
