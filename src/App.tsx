@@ -1,24 +1,16 @@
 import {
-	Box,
 	Button,
 	ChakraProvider,
 	extendTheme,
-	Flex,
 	HStack,
 	Stack,
-	VStack,
 } from '@chakra-ui/react';
 import { Container } from '@guardian/src-layout';
 import { Step, Steps, StepsStyleConfig, useSteps } from 'chakra-ui-steps';
-import React, { useReducer, useState } from 'react';
-import { useContext } from 'react';
-import { Link, Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { Header } from './components/Header';
-import { CarbonEmissions, initState, Reducer } from './Context';
-import { Overview } from './sections/Overview';
-import { Social } from './sections/Social';
-import { Spending } from './sections/Spending';
 import { Travel } from './sections/Travel';
+import { CarbonEmissionsStateProvider } from './State';
 
 const theme = extendTheme({
 	components: {
@@ -41,11 +33,9 @@ export const App = (): JSX.Element => {
 	const backDisabled = activeStep === 0;
 	const nextDisabled = activeStep === steps.length;
 
-	const [state, dispatch] = useReducer(Reducer, initState);
-
 	return (
 		<ChakraProvider theme={theme}>
-			<CarbonEmissions.Provider value={{ state, dispatch }}>
+			<CarbonEmissionsStateProvider>
 				<Router>
 					<div className="App">
 						<Stack direction="column" spacing="8">
@@ -76,7 +66,7 @@ export const App = (): JSX.Element => {
 						</Stack>
 					</div>
 				</Router>
-			</CarbonEmissions.Provider>
+			</CarbonEmissionsStateProvider>
 		</ChakraProvider>
 	);
 };

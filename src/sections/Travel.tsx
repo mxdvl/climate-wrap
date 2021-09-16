@@ -7,8 +7,7 @@ import {
 	SliderTrack,
 } from '@chakra-ui/react';
 import React from 'react';
-import { useState } from 'react';
-import { CarbonEmissions } from '../Context';
+import { CarbonEmissionsContext } from '../State';
 import { sections } from './Overview';
 
 const carbonPerKm = {
@@ -17,13 +16,8 @@ const carbonPerKm = {
 };
 
 export const Travel = (): JSX.Element => {
-	const [travelCarbon, setTravelCarbon] = useState<Record<string, number>>(
-		{},
-	);
-
-	const total = Object.values(travelCarbon).reduce((a, b) => a + b, 0);
-
-	const [state, dispatch] = React.useContext(CarbonEmissions);
+	const { state, setState } = React.useContext(CarbonEmissionsContext);
+	const total = Object.values(state.travel).reduce((a, b) => a + b, 0);
 
 	return (
 		<div>
@@ -38,13 +32,13 @@ export const Travel = (): JSX.Element => {
 				min={0}
 				max={50_000}
 				onChange={(value) => {
-					setTravelCarbon({
-						...travelCarbon,
-						flights: value * carbonPerKm.flight,
+					setState({
+						...state,
+						travel: {
+							...state.travel,
+							flights: value * carbonPerKm.flight,
+						},
 					});
-
-					// eslint-disable-next-line @typescript-eslint/no-unsafe-call -- it’s fine
-					dispatch({ type: 'TRAVEL', payload: { travel: total } });
 				}}
 			>
 				<SliderTrack>
