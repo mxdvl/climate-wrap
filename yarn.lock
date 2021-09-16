@@ -1964,6 +1964,18 @@
     "@guardian/src-foundations" "^3.9.0"
     mini-svg-data-uri "^1.3.3"
 
+"@guardian/src-icons@^3.9.0":
+  version "3.9.0"
+  resolved "https://registry.yarnpkg.com/@guardian/src-icons/-/src-icons-3.9.0.tgz#2c1c8c3fc91ba7916371d1608bcd09b925ba17bd"
+  integrity sha512-RlyU41mwRkXUdQSt7+JzXYaDXdqEady5/NiweFtunPeIXYGEoSe/5i6KPZdaIJ5vTnoRmglNYJhdMVbvzxfV2Q==
+
+"@guardian/src-layout@^3.9.0":
+  version "3.9.0"
+  resolved "https://registry.yarnpkg.com/@guardian/src-layout/-/src-layout-3.9.0.tgz#98712a5cd664822671acc6930363db42f29d848e"
+  integrity sha512-HjbvucO+F2XDFBUegw31htrIc0OtzaJLcVROn3OtIutTfBfUhTyYriY9C8NkmUtNlZH2nI/53OPa0/AM4qq6mw==
+  dependencies:
+    "@guardian/src-helpers" "^3.9.0"
+
 "@guardian/src-link@^3.9.0":
   version "3.9.0"
   resolved "https://registry.yarnpkg.com/@guardian/src-link/-/src-link-3.9.0.tgz#2fd9c406329e9421529dc65615fed20307c580af"
@@ -4111,6 +4123,11 @@ case-sensitive-paths-webpack-plugin@2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/case-sensitive-paths-webpack-plugin/-/case-sensitive-paths-webpack-plugin-2.3.0.tgz#23ac613cc9a856e4f88ff8bb73bbb5e989825cf7"
   integrity sha512-/4YgnZS8y1UXXmC02xD5rRrBEu6T5ub+mQHLNRj0fzTRbgdBYhsNo2V5EqwgqrExjxsjtF/OpAKAMkKsxbD5XQ==
+
+chakra-ui-steps@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/chakra-ui-steps/-/chakra-ui-steps-1.3.0.tgz#ec1a2e47b70ca6d79107a711f3d575eae3eeb61f"
+  integrity sha512-B2VsxZ2xvGCm2r4GHaAK+nSUx+B6E4rmDtYK3FG+2nRzVjmt5LPAq1AKu4wI8w3K8lASOUCOP05aCrH6YC/8zQ==
 
 chalk@2.4.2, chalk@^2.0.0, chalk@^2.4.1, chalk@^2.4.2:
   version "2.4.2"
