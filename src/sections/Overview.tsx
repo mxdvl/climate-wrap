@@ -93,8 +93,8 @@ export const Overview = (): JSX.Element => {
 				{Object.entries(sections).map((entry) => {
 					const [id, section] = entry as [SectionType, Section];
 					const consumption = consumptions[id];
-					const width = `${1.8 * 100 * (consumption / total)}vw`;
-					const height = '40vh';
+					const width = `${1.8 * 100 * (consumption / total)}%`;
+					const height = '40%';
 					const order =
 						Object.values(consumptions)
 							.filter((v) => v > 0)
@@ -104,12 +104,17 @@ export const Overview = (): JSX.Element => {
 					if (id == 'community') return;
 
 					return (
-						<WrapItem key={id} order={order === 1 ? -1 : order % 4}>
+						<WrapItem
+							key={id}
+							order={order === 1 ? -1 : order % 4}
+							width={width}
+							height={height}
+						>
 							<Box
 								padding={1}
 								margin={1}
-								width={width}
-								height={height}
+								width="100%"
+								height="100%"
 								background={section.colour}
 								flexWrap="wrap"
 							>
