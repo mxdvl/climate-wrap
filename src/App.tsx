@@ -1,5 +1,5 @@
-import { Button, ChakraProvider, Stack } from "@chakra-ui/react";
-import { Link, Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import { Button, ChakraProvider, Stack } from '@chakra-ui/react';
+import { Link, Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import { Overview } from './sections/Overview';
 import { Travel } from './sections/Travel';
 
