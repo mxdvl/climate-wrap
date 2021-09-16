@@ -48,7 +48,7 @@ export const sections: Record<SectionType, Section> = {
 	},
 	overview: {
 		name: 'Overview',
-		emoji: '',
+		emoji: '🔎',
 		description: '',
 		colour: theme.colors.purple[100],
 	},

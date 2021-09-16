@@ -80,10 +80,10 @@ export const App = (): JSX.Element => {
 		<ChakraProvider theme={theme}>
 			<Fonts />
 			<CarbonEmissionsStateProvider>
-				<Stack direction="column" spacing="8">
+				<Stack direction="column" spacing="4">
 					<Header />
 					<Container>
-						<Box height="70vh">
+						<Box height="78vh">
 							<Steps activeStep={activeStep} colorScheme="blue">
 								{sections.map(({ emoji, name }) => (
 									<Step
@@ -92,7 +92,7 @@ export const App = (): JSX.Element => {
 										icon={() => <span>{emoji}</span>}
 									>
 										<Flex direction="column" h="100%">
-											<Flex>{stepComponents[name]}</Flex>
+											{stepComponents[name]}
 											<HStack
 												marginTop="auto"
 												alignSelf="center"
