@@ -8,7 +8,7 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 import { CarbonEmissionsContext } from '../State';
-import { sections } from './Overview';
+import { sections } from './Sections';
 
 const carbonPerKm = {
 	flight: 0.22, // kg CO2 / km

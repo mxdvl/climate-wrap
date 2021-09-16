@@ -23,7 +23,6 @@ export const CarbonEmissionsContext = React.createContext<Store>({
 });
 
 export const CarbonEmissionsStateProvider: React.FC = ({ children }) => {
-	// const [state, dispatch] = React.useReducer(reducer, initState);
 	const [state, setState] = React.useState(initState);
 	return (
 		<CarbonEmissionsContext.Provider

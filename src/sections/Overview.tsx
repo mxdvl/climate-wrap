@@ -10,48 +10,8 @@ import {
 	WrapItem,
 } from '@chakra-ui/react';
 import { useState } from 'react';
-
-type Section = {
-	name: string;
-	colour: string;
-	emoji: string;
-	description: string;
-};
-
-type SectionType = 'travel' | 'community' | 'home' | 'spending' | 'social';
-
-export const sections: Record<SectionType, Section> = {
-	travel: {
-		name: 'Travel',
-		description: 'Communting, holidays, vehicles',
-		colour: theme.colors.cyan[100],
-		emoji: '✈️',
-	},
-	community: {
-		name: 'Community',
-		description: 'Local politics, actions together',
-		colour: theme.colors.teal[100],
-		emoji: '💬',
-	},
-	home: {
-		name: 'Home',
-		colour: theme.colors.pink[100],
-		description: 'Housing, energy sources',
-		emoji: '🏡',
-	},
-	spending: {
-		name: 'Spending',
-		description: 'Stuff you own or buy',
-		colour: theme.colors.white,
-		emoji: '💸',
-	},
-	social: {
-		name: 'Social',
-		emoji: '👪',
-		description: 'Family size, pets, etc.',
-		colour: theme.colors.orange[100],
-	},
-};
+import type { Section, SectionType } from './Sections';
+import { sections } from './Sections';
 
 type Consumptions = Record<SectionType, number>;
 
@@ -61,6 +21,7 @@ const defaultConsumptions: Consumptions = {
 	spending: 500,
 	social: 1200,
 	community: 0,
+	overview: 0,
 };
 
 const getTotal = (consumptions: Consumptions) => {
@@ -102,6 +63,7 @@ export const Overview = (): JSX.Element => {
 							.indexOf(consumption) + 1;
 
 					if (id == 'community') return;
+					if (id === 'overview') return;
 
 					return (
 						<WrapItem
