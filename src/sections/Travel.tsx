@@ -20,17 +20,21 @@ const carbonPerKm = {
 export const Travel = (): JSX.Element => {
 	const { state, setState } = React.useContext(CarbonEmissionsContext);
 	const total = Object.values(state.travel).reduce((a, b) => a + b, 0);
-
+	const emoji = sections.travel.emoji;
 	return (
 		<Stack spacing="4" mt="4">
 			<Box>
-				<Heading as="h2">Travel</Heading>
+				<Heading as="h2" size="3xl">
+					Travel {emoji}
+				</Heading>
 				<p>
 					{total.toFixed(1)} kg CO<sub>2</sub> / year.
 				</p>
 			</Box>
 			<Box>
-				<Heading as="h3">Total distance flown in a year</Heading>
+				<Heading as="h3" size="lg">
+					Total distance flown in a year
+				</Heading>
 				<Box>An average passenger flight is 11,000 km</Box>
 				<Slider
 					colorScheme="blue"
