@@ -7,6 +7,7 @@ import {
 	HStack,
 	Stack,
 } from '@chakra-ui/react';
+import { css } from '@emotion/react';
 import { LinkButton } from '@guardian/src-button';
 import { brand } from '@guardian/src-foundations';
 import {
@@ -18,6 +19,8 @@ import { Step, Steps, StepsStyleConfig, useSteps } from 'chakra-ui-steps';
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Header } from './components/Header';
+import { FontFamily } from './fonts/Font';
+import { Fonts } from './fonts/fonts';
 import { Community } from './sections/Community';
 import { Home } from './sections/Home';
 import { Overview } from './sections/Overview';
@@ -36,6 +39,7 @@ const theme = extendTheme({
 			500: brand[400],
 		},
 	},
+	fonts: { heading: FontFamily.HEADLINE, body: FontFamily.SANS },
 });
 
 export const App = (): JSX.Element => {
@@ -58,12 +62,13 @@ export const App = (): JSX.Element => {
 
 	return (
 		<ChakraProvider theme={theme}>
+			<Fonts />
 			<CarbonEmissionsStateProvider>
 				<Router>
 					<Stack direction="column" spacing="8">
 						<Header />
 						<Container>
-							<Box height="75vh">
+							<Box height="70vh">
 								<Steps
 									activeStep={activeStep}
 									colorScheme="blue"
@@ -83,28 +88,37 @@ export const App = (): JSX.Element => {
 													alignSelf="center"
 													spacing="8"
 												>
-													{!backDisabled && (
-														<LinkButton
-															onClick={prevStep}
-															iconSide="left"
-															icon={
-																<SvgArrowLeftStraight />
-															}
-														>
-															Back
-														</LinkButton>
-													)}
-													{!nextDisabled && (
-														<LinkButton
-															onClick={nextStep}
-															iconSide="right"
-															icon={
-																<SvgArrowRightStraight />
-															}
-														>
-															Next
-														</LinkButton>
-													)}
+													<LinkButton
+														cssOverrides={css`
+															visibility: ${!backDisabled
+																? 'visible'
+																: 'hidden'};
+														`}
+														onClick={prevStep}
+														iconSide="left"
+														nudgeIcon
+														icon={
+															<SvgArrowLeftStraight />
+														}
+													>
+														Back
+													</LinkButton>
+
+													<LinkButton
+														cssOverrides={css`
+															visibility: ${!nextDisabled
+																? 'visible'
+																: 'hidden'};
+														`}
+														onClick={nextStep}
+														iconSide="right"
+														nudgeIcon
+														icon={
+															<SvgArrowRightStraight />
+														}
+													>
+														Next
+													</LinkButton>
 												</HStack>
 											</Flex>
 										</Step>
