@@ -1,3 +1,5 @@
-import { ReactElement } from "react";
-
-export const Overview = ({}) => <div>overview section</div>
+export const Overview = ({}) => (
+	<div>
+		<h3>OVERVIEW section</h3>
+	</div>
+);
