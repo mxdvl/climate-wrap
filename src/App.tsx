@@ -1,5 +1,6 @@
-import { Button, ChakraProvider, Stack } from "@chakra-ui/react";
-import { Link, Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import { Button, ChakraProvider, Stack } from '@chakra-ui/react';
+import { Link, Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import { Header } from './components/Header';
 import { Overview } from './sections/Overview';
 import { Travel } from './sections/Travel';
 
@@ -8,7 +9,7 @@ export const App = (): JSX.Element => {
 		<ChakraProvider>
 			<Router>
 				<div className="App">
-					<header className="App-header">HEADER HERE</header>
+					<Header />
 					<nav>
 						<Stack as="ul" direction="row" listStyleType="none">
 							<li>
