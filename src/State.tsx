@@ -15,6 +15,7 @@ interface ApplicationState {
 	};
 
 	spending: Array<{
+		id: number;
 		used: boolean;
 		item: CarbonItem;
 	}>;
@@ -66,15 +67,17 @@ export const initState = (): ApplicationState => {
 
 		spending: [
 			{
+				id: 0,
 				used: false,
 				item: {
-					name: 'new phone who dis',
+					name: 'phone',
 					co2: 80, // iPhone
 					emoji: '📱',
 					section: 'spending',
 				},
 			},
 			{
+				id: 1,
 				used: false,
 				item: {
 					name: 'new jeans',
@@ -84,6 +87,7 @@ export const initState = (): ApplicationState => {
 				},
 			},
 			{
+				id: 2,
 				used: false,
 				item: {
 					name: 'shirt',

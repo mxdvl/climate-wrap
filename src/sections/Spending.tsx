@@ -1,4 +1,4 @@
-import { Box, Checkbox, CheckboxGroup, Heading, Stack } from '@chakra-ui/react';
+import { Box, Checkbox, Heading, Stack, VStack } from '@chakra-ui/react';
 import React from 'react';
 import { CarbonEmissionsContext } from '../State';
 
@@ -12,24 +12,27 @@ export const Spending = (): JSX.Element => {
 					Spending
 				</Heading>
 
-				{/* <CheckboxGroup
-					onChange={(val) => {
-						setState({
-							...state,
-							spending: {
-								...spending,
-								diet: parseInt(val, 10),
-							},
-						});
-					}}
-					value={social.diet}
-				>
-					{carbonItems.map((v, i) => (
-						<Checkbox value={i} key={v.name}>
-							{v.name} {v.emoji}
+				<VStack>
+					{state.spending.map((v, i) => (
+						<Checkbox
+							defaultChecked={v.used}
+							checked={v.used}
+							key={i}
+							onChange={() => {
+								const newSpends = [...state.spending];
+								newSpends[i].used = !newSpends[i].used;
+
+								console.log(i, newSpends);
+								setState({
+									...state,
+									spending: newSpends,
+								});
+							}}
+						>
+							{v.item.name} {v.item.emoji}
 						</Checkbox>
 					))}
-				</CheckboxGroup> */}
+				</VStack>
 			</Box>
 		</Stack>
 	);
