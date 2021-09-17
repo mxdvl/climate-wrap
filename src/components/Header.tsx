@@ -8,7 +8,7 @@ export const Header: React.FC = () => (
 		<Container>
 			<Flex direction="row">
 				<Flex justifyContent="left" alignItems="center">
-					<Heading color="white">Climate Calculator</Heading>
+					<Heading color="white">Your Climate Wrapped</Heading>
 				</Flex>
 				<Spacer />
 				<Flex>

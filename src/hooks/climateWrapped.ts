@@ -6,9 +6,9 @@ interface Vote {
 	votes: string;
 	party: string;
 }
-interface MpApiResponse {
+export interface MpApiResponse {
 	title: string;
-	vote: Vote[];
+	votes: Vote[];
 }
 
 interface UseMpResponse {
