@@ -13,7 +13,6 @@ import {
 } from '@chakra-ui/react';
 import type { ChangeEvent } from 'react';
 import { useState } from 'react';
-import { useCarbonIntensity, useMp } from '../hooks/climateWrapped';
 import type { MpApiResponse } from '../hooks/climateWrapped';
 
 const fetchMpData = async (
