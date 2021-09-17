@@ -44,14 +44,13 @@ const CarbonItemBox = ({
 	onClick,
 }: {
 	item: CarbonItem;
-	onClick: () => void;
+	onClick?: () => void;
 }): JSX.Element => {
 	const [cols, rows] = boxFromCarbon(item.co2);
 	const { colour } = sections[item.section];
 
 	return (
 		<GridItem
-			as={Button}
 			variant="unstyled"
 			colSpan={cols}
 			rowSpan={rows}

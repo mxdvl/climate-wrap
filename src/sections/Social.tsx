@@ -1,10 +1,16 @@
 import { Box, Heading, Radio, RadioGroup, Stack } from '@chakra-ui/react';
+import React from 'react';
+import { CarbonItemWithGrid } from '../components/CarbonItems';
+import { CarbonEmissionsContext } from '../State';
 import { sections } from './Sections';
 
 export const Social = (): JSX.Element => {
-	const emoji = sections.social.emoji;
+	// const [diet, setDiet] = React.useState('1');
+	const { state, setState } = React.useContext(CarbonEmissionsContext);
+	const { carbonItems, social } = state;
+	console.log(carbonItems);
 	return (
-		<Stack spacing="4" mt="4">
+		<Stack spacing="4" mt="4" dir="horizontal">
 			<Box>
 				<Heading as="h2" size="3xl" textAlign="center">
 					Social
@@ -12,13 +18,29 @@ export const Social = (): JSX.Element => {
 				<Heading as="h3" size="lg">
 					Diet
 				</Heading>
-				<RadioGroup>
-					<Radio value="1">Meat</Radio>
-					<Radio value="2">Vegetarian</Radio>
-					<Radio value="3">Pescitarian</Radio>
-					<Radio value="4">Vegan</Radio>
+				<RadioGroup
+					onChange={(val) => {
+						setState({
+							...state,
+							social: {
+								...social,
+								diet: parseInt(val, 10),
+							},
+						});
+					}}
+					value={social.diet}
+				>
+					{carbonItems.map((v, i) => (
+						<Radio value={i} key={v.name}>
+							{v.name} {v.emoji}
+						</Radio>
+					))}
 				</RadioGroup>
+				<Heading as="h3" size="lg">
+					Carbon Impact
+				</Heading>
 			</Box>
+			<CarbonItemWithGrid item={carbonItems[social.diet]} />
 		</Stack>
 	);
 };
