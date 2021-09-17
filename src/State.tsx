@@ -30,17 +30,17 @@ export const carbonPerKm = {
 };
 
 export const flightValues = {
-	maxKms: 50_000,
+	maxKms: 55_000,
 	avgKms: 11_000,
 };
 
 export const carValues = {
-	maxKms: 6_000,
+	maxKms: 20_000,
 	avgKms: 4_000,
 };
 
 export const commuteValues = {
-	maxKms: 12_000,
+	maxKms: 30_000,
 	avgKms: 6_000,
 };
 

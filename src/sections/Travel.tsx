@@ -242,15 +242,15 @@ export const Travel = (): JSX.Element => {
 						name: 'flight',
 						co2: state.travel.flights,
 						section: 'travel',
-						emoji: 'P',
+						emoji: '✈️',
 					}}
 				/>
 				<CarbonItemWithGrid
 					item={{
-						name: 'cars',
+						name: 'private vehicles',
 						co2: state.travel.cars,
 						section: 'travel',
-						emoji: 'C',
+						emoji: '🚗',
 					}}
 				/>
 				<CarbonItemWithGrid
@@ -258,7 +258,7 @@ export const Travel = (): JSX.Element => {
 						name: 'commute',
 						co2: state.travel.commute,
 						section: 'travel',
-						emoji: 'T',
+						emoji: '🚆',
 					}}
 				/>
 			</HStack>
