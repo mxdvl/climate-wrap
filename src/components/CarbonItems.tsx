@@ -1,4 +1,5 @@
 import { Box, Center, Grid, GridItem } from '@chakra-ui/layout';
+import { Button } from '@chakra-ui/react';
 import theme from '@chakra-ui/theme';
 import { svgBackgroundImage } from '@guardian/src-helpers';
 import type { SectionType } from '../sections/Sections';
@@ -38,12 +39,19 @@ const boxFromCarbon = (co2: number): Size => {
 	return [width, height];
 };
 
-const CarbonItemBox = ({ item }: { item: CarbonItem }): JSX.Element => {
+const CarbonItemBox = ({
+	item,
+	onClick,
+}: {
+	item: CarbonItem;
+	onClick?: () => void;
+}): JSX.Element => {
 	const [cols, rows] = boxFromCarbon(item.co2);
 	const { colour } = sections[item.section];
 
 	return (
 		<GridItem
+			variant="unstyled"
 			colSpan={cols}
 			rowSpan={rows}
 			bg={colour[100]}

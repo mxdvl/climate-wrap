@@ -1,5 +1,6 @@
 import {
 	Box,
+	Button,
 	Center,
 	Grid,
 	GridItem,
@@ -7,6 +8,9 @@ import {
 	Stack,
 	theme,
 } from '@chakra-ui/react';
+import { useSteps } from 'chakra-ui-steps';
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import type { CarbonItem } from '../components/CarbonItems';
 import {
 	backgroundSize,
@@ -17,15 +21,16 @@ import {
 	grid,
 	gridSize,
 } from '../components/CarbonItems';
+import type { Section, SectionType } from './Sections';
 import { sections } from './Sections';
 
 const numeric = (a: number, b: number) => b - a;
 
-export const Overview = (): JSX.Element => {
-	// const total = getTotal(consumptions);
-	let total = 0;
-	const emoji = sections.overview.emoji;
-
+export const Overview = ({
+	setStep,
+}: {
+	setStep: (step: number) => void;
+}): JSX.Element => {
 	const items: CarbonItem[] = [
 		{
 			name: 'long-haul flight',
@@ -54,9 +59,10 @@ export const Overview = (): JSX.Element => {
 			section: 'spending',
 		},
 	];
-
+	let total = 0;
+	const emoji = sections.overview.emoji;
 	const sorted = items.sort((a, b) => numeric(a.co2, b.co2));
-
+	const sectionIds = Object.keys(sections);
 	return (
 		<Stack spacing="6" mt="4">
 			<Heading as="h3" textAlign="center" size="3xl">
@@ -82,7 +88,20 @@ export const Overview = (): JSX.Element => {
 					{sorted.map((item, index) => {
 						const [rows, columns] = boxFromCarbon(item.co2);
 						total += rows * columns;
-						return <CarbonItemBox key={index} item={item} />;
+						return (
+							<CarbonItemBox
+								onClick={() => {
+									const indexOfPath = sectionIds.indexOf(
+										item.section,
+									);
+									const step =
+										indexOfPath > -1 ? indexOfPath : 0;
+									setStep(step);
+								}}
+								key={index}
+								item={item}
+							/>
+						);
 					})}
 
 					{Array(Math.max(0, 1040 - Math.floor(total)))

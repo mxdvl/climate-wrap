@@ -5,6 +5,9 @@ interface ApplicationState {
 	travel: {
 		flights: number;
 	};
+	social: {
+		diet: number;
+	};
 	carbonItems: CarbonItem[];
 }
 
@@ -27,7 +30,37 @@ export const initState: ApplicationState = {
 	travel: {
 		flights: flightValues.avgKms * carbonPerKm.flight,
 	},
-	carbonItems: [],
+
+	social: {
+		diet: 0,
+	},
+
+	carbonItems: [
+		{
+			name: 'Vegan',
+			section: 'social',
+			emoji: '🥦',
+			co2: 1400,
+		},
+		{
+			name: 'Meat',
+			section: 'social',
+			emoji: '🥩',
+			co2: 2600,
+		},
+		{
+			name: 'Vegetarian',
+			section: 'social',
+			emoji: '🥛',
+			co2: 1800,
+		},
+		{
+			name: 'Pescetarian',
+			section: 'social',
+			emoji: '🐡',
+			co2: 2200,
+		},
+	],
 };
 
 export const CarbonEmissionsContext = React.createContext<Store>({
