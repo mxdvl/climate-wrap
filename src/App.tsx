@@ -12,6 +12,7 @@ import { brand } from '@guardian/src-foundations';
 import {
 	SvgArrowLeftStraight,
 	SvgArrowRightStraight,
+	SvgChevronRightDouble,
 } from '@guardian/src-icons';
 import { Container } from '@guardian/src-layout';
 import { Step, Steps, StepsStyleConfig, useSteps } from 'chakra-ui-steps';
@@ -79,13 +80,14 @@ export const App = (): JSX.Element => {
 		Social: <Social />,
 		Spending: <Spending />,
 		Travel: <Travel />,
-		Overview: <Overview />,
+		Overview: <Overview setStep={setStep} />,
 		Home: <Home />,
 		Community: <Community />,
 	};
 
 	const backDisabled = activeStep === 0;
 	const nextDisabled = activeStep === sections.length - 1;
+	const lastStep = sections.length - 1;
 
 	return (
 		<SWRConfig value={swrConfig}>
@@ -143,6 +145,25 @@ export const App = (): JSX.Element => {
 														}
 													>
 														Next
+													</LinkButton>
+
+													<LinkButton
+														cssOverrides={css`
+															visibility: ${activeStep !==
+															lastStep
+																? 'visible'
+																: 'hidden'};
+														`}
+														onClick={() => {
+															setStep(lastStep);
+														}}
+														iconSide="right"
+														nudgeIcon
+														icon={
+															<SvgChevronRightDouble />
+														}
+													>
+														Overview
 													</LinkButton>
 												</HStack>
 											</Flex>

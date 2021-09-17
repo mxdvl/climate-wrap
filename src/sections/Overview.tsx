@@ -1,5 +1,6 @@
 import {
 	Box,
+	Button,
 	Center,
 	Grid,
 	GridItem,
@@ -7,6 +8,9 @@ import {
 	Stack,
 	theme,
 } from '@chakra-ui/react';
+import { useSteps } from 'chakra-ui-steps';
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import type { CarbonItem } from '../components/CarbonItems';
 import {
 	backgroundSize,
@@ -17,15 +21,16 @@ import {
 	grid,
 	gridSize,
 } from '../components/CarbonItems';
+import type { Section, SectionType } from './Sections';
 import { sections } from './Sections';
 
 const numeric = (a: number, b: number) => b - a;
 
-export const Overview = (): JSX.Element => {
-	// const total = getTotal(consumptions);
-	let total = 0;
-	const emoji = sections.overview.emoji;
-
+export const Overview = ({
+	setStep,
+}: {
+	setStep: (step: number) => void;
+}): JSX.Element => {
 	const items: CarbonItem[] = [
 		{
 			name: 'long-haul flight',
@@ -54,9 +59,10 @@ export const Overview = (): JSX.Element => {
 			section: 'spending',
 		},
 	];
-
+	let total = 0;
+	const emoji = sections.overview.emoji;
 	const sorted = items.sort((a, b) => numeric(a.co2, b.co2));
-
+	const sectionIds = Object.keys(sections);
 	return (
 		<Stack spacing="6" mt="4">
 			<Heading as="h3" textAlign="center" size="3xl">
@@ -82,7 +88,21 @@ export const Overview = (): JSX.Element => {
 					{sorted.map((item, index) => {
 						const [rows, columns] = boxFromCarbon(item.co2);
 						total += rows * columns;
-						return <CarbonItemBox key={index} item={item} />;
+						return (
+							<CarbonItemBox
+								onClick={() => {
+									const indexOfPath = sectionIds.indexOf(
+										item.section,
+									);
+									console.log('we clicked', indexOfPath);
+									const step =
+										indexOfPath > -1 ? indexOfPath : 0;
+									setStep(step);
+								}}
+								key={index}
+								item={item}
+							/>
+						);
 					})}
 
 					{Array(Math.max(0, 1040 - Math.floor(total)))
@@ -113,95 +133,6 @@ export const Overview = (): JSX.Element => {
 					to meet the UK’s 2045 net-zero carbon target.
 				</Box>
 			</Center>
-
-			<CarbonItemWithGrid
-				item={{
-					co2: 500,
-					name: 'something',
-					emoji: '5',
-					section: 'travel',
-				}}
-			/>
-			<CarbonItemWithGrid
-				item={{
-					co2: 10,
-					name: '10',
-					emoji: '1',
-					section: 'home',
-				}}
-			/>
-			<CarbonItemWithGrid
-				item={{
-					co2: 20,
-					name: '20',
-					emoji: '2',
-					section: 'home',
-				}}
-			/>
-			<CarbonItemWithGrid
-				item={{
-					co2: 30,
-					name: '30',
-					emoji: '3',
-					section: 'home',
-				}}
-			/>
-			<CarbonItemWithGrid
-				item={{
-					co2: 40,
-					name: '40',
-					emoji: '4',
-					section: 'home',
-				}}
-			/>
-			<CarbonItemWithGrid
-				item={{
-					co2: 50,
-					name: '50',
-					emoji: '5',
-					section: 'home',
-				}}
-			/>
-			<CarbonItemWithGrid
-				item={{
-					co2: 60,
-					name: '60',
-					emoji: '6',
-					section: 'home',
-				}}
-			/>
-			<CarbonItemWithGrid
-				item={{
-					co2: 70,
-					name: '70',
-					emoji: '7',
-					section: 'home',
-				}}
-			/>
-			<CarbonItemWithGrid
-				item={{
-					co2: 80,
-					name: '80',
-					emoji: '8',
-					section: 'home',
-				}}
-			/>
-			<CarbonItemWithGrid
-				item={{
-					co2: 90,
-					name: '90',
-					emoji: '9',
-					section: 'home',
-				}}
-			/>
-			<CarbonItemWithGrid
-				item={{
-					co2: 100,
-					name: '100',
-					emoji: '2',
-					section: 'home',
-				}}
-			/>
 		</Stack>
 	);
 };
