@@ -17,6 +17,8 @@ import { Container } from '@guardian/src-layout';
 import { Step, Steps, StepsStyleConfig, useSteps } from 'chakra-ui-steps';
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import type { SWRConfiguration } from 'swr';
+import { SWRConfig } from 'swr';
 import { Header } from './components/Header';
 import { FontFamily } from './fonts/Font';
 import { Fonts } from './fonts/fonts';
@@ -51,6 +53,15 @@ export const App = (): JSX.Element => {
 	const sections = Object.values(sectionDetails);
 	const sectionKeys = Object.keys(sectionDetails);
 
+	const apiRoot = 'https://climate-wrapped-api.app.makani.dev/';
+
+	//// SWR CONFIG ////
+	const swrConfig: SWRConfiguration = {
+		refreshInterval: 3000,
+		fetcher: (url: string) =>
+			fetch(`${apiRoot}${url}`).then((r) => r.json()),
+	};
+
 	// Set the step to the loaded path.
 	React.useEffect(() => {
 		const path = location.pathname.split('/')[1];
@@ -77,67 +88,72 @@ export const App = (): JSX.Element => {
 	const nextDisabled = activeStep === sections.length - 1;
 
 	return (
-		<ChakraProvider theme={theme}>
-			<Fonts />
-			<CarbonEmissionsStateProvider>
-				<Stack direction="column" spacing="4">
-					<Header />
-					<Container>
-						<Box height="78vh">
-							<Steps activeStep={activeStep} colorScheme="blue">
-								{sections.map(({ emoji, name }) => (
-									<Step
-										label={name}
-										key={name}
-										icon={() => <span>{emoji}</span>}
-									>
-										<Flex direction="column" h="100%">
-											{stepComponents[name]}
-											<HStack
-												marginTop="auto"
-												alignSelf="center"
-												spacing="8"
-											>
-												<LinkButton
-													cssOverrides={css`
-														visibility: ${!backDisabled
-															? 'visible'
-															: 'hidden'};
-													`}
-													onClick={prevStep}
-													iconSide="left"
-													nudgeIcon
-													icon={
-														<SvgArrowLeftStraight />
-													}
+		<SWRConfig value={swrConfig}>
+			<ChakraProvider theme={theme}>
+				<Fonts />
+				<CarbonEmissionsStateProvider>
+					<Stack direction="column" spacing="4">
+						<Header />
+						<Container>
+							<Box height="78vh">
+								<Steps
+									activeStep={activeStep}
+									colorScheme="blue"
+								>
+									{sections.map(({ emoji, name }) => (
+										<Step
+											label={name}
+											key={name}
+											icon={() => <span>{emoji}</span>}
+										>
+											<Flex direction="column" h="100%">
+												{stepComponents[name]}
+												<HStack
+													marginTop="auto"
+													alignSelf="center"
+													spacing="8"
 												>
-													Back
-												</LinkButton>
+													<LinkButton
+														cssOverrides={css`
+															visibility: ${!backDisabled
+																? 'visible'
+																: 'hidden'};
+														`}
+														onClick={prevStep}
+														iconSide="left"
+														nudgeIcon
+														icon={
+															<SvgArrowLeftStraight />
+														}
+													>
+														Back
+													</LinkButton>
 
-												<LinkButton
-													cssOverrides={css`
-														visibility: ${!nextDisabled
-															? 'visible'
-															: 'hidden'};
-													`}
-													onClick={nextStep}
-													iconSide="right"
-													nudgeIcon
-													icon={
-														<SvgArrowRightStraight />
-													}
-												>
-													Next
-												</LinkButton>
-											</HStack>
-										</Flex>
-									</Step>
-								))}
-							</Steps>
-						</Box>
-					</Container>
-				</Stack>
-			</CarbonEmissionsStateProvider>
-		</ChakraProvider>
+													<LinkButton
+														cssOverrides={css`
+															visibility: ${!nextDisabled
+																? 'visible'
+																: 'hidden'};
+														`}
+														onClick={nextStep}
+														iconSide="right"
+														nudgeIcon
+														icon={
+															<SvgArrowRightStraight />
+														}
+													>
+														Next
+													</LinkButton>
+												</HStack>
+											</Flex>
+										</Step>
+									))}
+								</Steps>
+							</Box>
+						</Container>
+					</Stack>
+				</CarbonEmissionsStateProvider>
+			</ChakraProvider>
+		</SWRConfig>
 	);
 };

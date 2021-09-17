@@ -1,7 +1,10 @@
 import { Box, Heading, Stack } from '@chakra-ui/react';
-import { sections } from './Sections';
+import useSWR from 'swr';
+import { useSuppliers } from '../hooks/climateWrapped';
 
 export const Home = (): JSX.Element => {
+	const { suppliers } = useSuppliers();
+	console.log(suppliers);
 	return (
 		<Stack spacing="4" mt="4">
 			<Box>
