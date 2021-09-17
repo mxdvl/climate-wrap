@@ -7,9 +7,15 @@ import {
 	Stack,
 	theme,
 } from '@chakra-ui/react';
-import { svgBackgroundImage } from '@guardian/src-helpers';
 import type { CarbonItem } from '../components/CarbonItems';
-import { boxFromCarbon, CarbonItemBox } from '../components/CarbonItems';
+import {
+	backgroundSize,
+	boxFromCarbon,
+	CarbonItemBox,
+	gapSize,
+	grid,
+	gridSize,
+} from '../components/CarbonItems';
 import { sections } from './Sections';
 
 const numeric = (a: number, b: number) => b - a;
@@ -41,7 +47,7 @@ export const Overview = (): JSX.Element => {
 		},
 
 		{
-			name: 'coffee beans',
+			name: 'beans',
 			emoji: '☕',
 			co2: Math.ceil(0.28 * 365 * 1.2),
 			section: 'spending',
@@ -49,20 +55,6 @@ export const Overview = (): JSX.Element => {
 	];
 
 	const sorted = items.sort((a, b) => numeric(a.co2, b.co2));
-
-	const gridSize = 24;
-	const gapSize = 2;
-	const backgroundSize = gridSize + gapSize;
-
-	const grid = svgBackgroundImage(`
-		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${backgroundSize} ${backgroundSize}">
-			<g fill="#abc">
-				<circle cx="0" cy="0" r="1" />
-				<circle cx="${backgroundSize}" cy="0" r="1" />
-				<circle cx="0" cy="${backgroundSize}" r="1" />
-				<circle cx="${backgroundSize}" cy="${backgroundSize}" r="1" />
-			</g>
-		</svg>`);
 
 	return (
 		<Stack spacing="4" mt="4">
