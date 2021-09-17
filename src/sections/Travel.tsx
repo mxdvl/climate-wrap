@@ -1,5 +1,6 @@
 import {
 	Box,
+	Center,
 	Heading,
 	Slider,
 	SliderFilledTrack,
@@ -9,17 +10,14 @@ import {
 	Text,
 } from '@chakra-ui/react';
 import React from 'react';
-import { CarbonEmissionsContext } from '../State';
+import { Gauge } from '../components/Gauge';
+import { CarbonEmissionsContext, carbonPerKm, flightValues } from '../State';
 import { sections } from './Sections';
-
-const carbonPerKm = {
-	flight: 0.22, // kg CO2 / km
-	car: 0.19, // kg CO2 / km
-};
 
 export const Travel = (): JSX.Element => {
 	const { state, setState } = React.useContext(CarbonEmissionsContext);
 	const total = Object.values(state.travel).reduce((a, b) => a + b, 0);
+
 	return (
 		<Stack spacing="4" mt="4">
 			<Box>
@@ -31,6 +29,21 @@ export const Travel = (): JSX.Element => {
 				</p>
 			</Box>
 			<Box>
+				<Center>
+					<Gauge
+						score={
+							state.travel.flights /
+							(flightValues.maxKms * carbonPerKm.flight)
+						}
+						title="Flights"
+						average={
+							(flightValues.avgKms * carbonPerKm.flight) /
+							(flightValues.maxKms * carbonPerKm.flight)
+						}
+					/>
+				</Center>
+			</Box>
+			<Box>
 				<Heading as="h3" size="lg">
 					Total distance flown in a year
 				</Heading>
@@ -38,10 +51,11 @@ export const Travel = (): JSX.Element => {
 				<Slider
 					colorScheme="blue"
 					size="lg"
-					defaultValue={11_000}
+					defaultValue={flightValues.avgKms}
 					min={0}
-					max={50_000}
+					max={flightValues.maxKms}
 					onChange={(value) => {
+						console.log(value);
 						setState({
 							...state,
 							travel: {

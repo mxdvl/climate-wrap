@@ -13,9 +13,19 @@ interface Store {
 	setState: React.Dispatch<React.SetStateAction<ApplicationState>>;
 }
 
+export const carbonPerKm = {
+	flight: 0.22, // kg CO2 / km
+	car: 0.19, // kg CO2 / km
+};
+
+export const flightValues = {
+	maxKms: 50000,
+	avgKms: 11000,
+};
+
 export const initState: ApplicationState = {
 	travel: {
-		flights: 100,
+		flights: flightValues.avgKms * carbonPerKm.flight,
 	},
 	carbonItems: [],
 };
