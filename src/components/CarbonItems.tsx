@@ -73,7 +73,7 @@ const CarbonItemBox = ({
 
 				{rows > 2 && cols > 2 ? (
 					<Box textAlign="center" fontSize="sm">
-						{item.co2} kg CO2e
+						{Math.round(item.co2)} kg CO2e
 					</Box>
 				) : null}
 			</Center>

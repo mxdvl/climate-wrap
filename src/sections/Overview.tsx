@@ -46,6 +46,18 @@ export const Overview = ({
 			section: 'travel',
 			emoji: '✈️',
 		},
+		{
+			name: 'cars',
+			co2: state.travel.cars,
+			section: 'travel',
+			emoji: 'C',
+		},
+		{
+			name: 'commute',
+			co2: state.travel.commute,
+			section: 'travel',
+			emoji: 'T',
+		},
 	];
 
 	let total = 0;
