@@ -1,8 +1,11 @@
 import {
 	Box,
 	Button,
+	Divider,
 	Heading,
+	HStack,
 	Input,
+	Spacer,
 	Stack,
 	Stat,
 	StatArrow,
@@ -13,7 +16,10 @@ import {
 } from '@chakra-ui/react';
 import type { ChangeEvent } from 'react';
 import { useState } from 'react';
-import type { MpApiResponse } from '../hooks/climateWrapped';
+import type {
+	CarbonIntensityApiResponse,
+	MpApiResponse,
+} from '../hooks/climateWrapped';
 
 const fetchMpData = async (
 	postcode?: string,
@@ -26,9 +32,22 @@ const fetchMpData = async (
 	}
 };
 
+const fetchCarbonIntensity = async (
+	postcode?: string,
+): Promise<CarbonIntensityApiResponse | undefined> => {
+	if (postcode) {
+		const result = await fetch(
+			`https://climate-wrapped-api.app.makani.dev/carbon-intensity/${postcode}`,
+		);
+		return result.json() as unknown as CarbonIntensityApiResponse;
+	}
+};
+
 export const Community = (): JSX.Element => {
 	const [postcode, setPostCode] = useState<string>();
 	const [mpData, setMpData] = useState<MpApiResponse>();
+	const [carbonIntensity, setCarbonIntensity] =
+		useState<CarbonIntensityApiResponse>();
 
 	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
 		setPostCode(event.target.value);
@@ -39,9 +58,13 @@ export const Community = (): JSX.Element => {
 			void fetchMpData(postcode)
 				.then((v) => setMpData(v))
 				.catch((e) => console.log(e));
+			void fetchCarbonIntensity(postcode.split(' ')[0])
+				.then((v) => setCarbonIntensity(v))
+				.catch((e) => console.log(e));
 		}
 	};
 	console.log(mpData);
+	console.log(carbonIntensity);
 	return (
 		<Stack spacing="4" mt="4">
 			<Box>
@@ -77,9 +100,40 @@ export const Community = (): JSX.Element => {
 						))}
 					</Box>
 				)}
-				<Heading as="h3" size="lg">
-					Carbon Intensity
-				</Heading>
+				{carbonIntensity && (
+					<Box>
+						<Heading as="h3" size="lg">
+							Carbon Intensity
+						</Heading>
+						<Heading as="h4" size="md">
+							Region: {carbonIntensity.shortname}
+						</Heading>
+						<Stat>
+							<StatLabel>Current Carbon Intensity</StatLabel>
+							<StatNumber>
+								{carbonIntensity.data[0].intensity.forecast}{' '}
+								gCO2/kWh
+							</StatNumber>
+							<StatHelpText>Last 30 mins</StatHelpText>
+						</Stat>
+						<Heading as="h4" size="md">
+							Current Region Fuel Generation Mix
+						</Heading>
+						<Divider />
+						{carbonIntensity.data[0].generationmix.map((mix) => (
+							<>
+								<HStack>
+									<Heading size="md">
+										{mix.fuel.toUpperCase()}
+									</Heading>
+									<Spacer />
+									<Heading size="md">{mix.perc}%</Heading>
+								</HStack>
+								<Divider />
+							</>
+						))}
+					</Box>
+				)}
 			</Box>
 		</Stack>
 	);
