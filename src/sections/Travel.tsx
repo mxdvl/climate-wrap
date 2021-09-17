@@ -90,6 +90,10 @@ export const Travel = (): JSX.Element => {
 							defaultValue={flightValues.avgKms}
 							min={0}
 							max={flightValues.maxKms}
+							value={
+								(state.travel.flights / 11_000) *
+								flightValues.maxKms
+							}
 							onChange={(value) => {
 								console.log(value);
 								setState({
@@ -147,6 +151,9 @@ export const Travel = (): JSX.Element => {
 							defaultValue={carValues.avgKms}
 							min={0}
 							max={carValues.maxKms}
+							value={
+								(state.travel.cars / 1140) * carValues.maxKms
+							}
 							onChange={(value) => {
 								console.log(value);
 								setState({
@@ -207,6 +214,10 @@ export const Travel = (): JSX.Element => {
 							defaultValue={commuteValues.avgKms}
 							min={0}
 							max={commuteValues.maxKms}
+							value={
+								(state.travel.commute / 240) *
+								commuteValues.maxKms
+							}
 							onChange={(value) => {
 								console.log(value);
 								setState({

@@ -50,6 +50,7 @@ const CarbonItemBox = ({
 
 	return (
 		<GridItem
+			order={-item.co2}
 			onClick={onClick}
 			cursor={onClick ? 'pointer' : void 0}
 			colSpan={cols}
@@ -68,6 +69,12 @@ const CarbonItemBox = ({
 				</Box>
 				{rows > 2 && cols > 1 ? (
 					<Box textAlign="center">{item.name}</Box>
+				) : null}
+
+				{rows > 2 && cols > 2 ? (
+					<Box textAlign="center" fontSize="sm">
+						{Math.round(item.co2)} kg CO2e
+					</Box>
 				) : null}
 			</Center>
 		</GridItem>
