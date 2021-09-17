@@ -14,7 +14,7 @@ export const Social = (): JSX.Element => {
 				</Heading>
 				<RadioGroup>
 					<Radio value="1">Meat</Radio>
-					<Radio value="2">Vegitarian</Radio>
+					<Radio value="2">Vegetarian</Radio>
 					<Radio value="3">Pescitarian</Radio>
 					<Radio value="4">Vegan</Radio>
 				</RadioGroup>

@@ -52,7 +52,7 @@ export const Travel = (): JSX.Element => {
 					}}
 				>
 					<SliderTrack>
-						<SliderFilledTrack bg={sections.travel.colour} />
+						<SliderFilledTrack bg={sections.travel.colour[100]} />
 					</SliderTrack>
 					<SliderThumb boxSize="6">
 						<Text fontSize="lg">✈️</Text>
