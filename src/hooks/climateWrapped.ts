@@ -6,9 +6,9 @@ interface Vote {
 	votes: string;
 	party: string;
 }
-interface MpApiResponse {
+export interface MpApiResponse {
 	title: string;
-	vote: Vote[];
+	votes: Vote[];
 }
 
 interface UseMpResponse {
@@ -98,12 +98,16 @@ export type Suppliers = Supplier[];
 interface SuppliersApiResponse {
 	suppliers: Suppliers;
 }
-
+interface UseSuppliersUsageResponse {
+	suppliers?: Suppliers;
+	isLoading: boolean;
+	isError: boolean;
+}
 /**
  * https://github.com/coldlink/climate-wrapped-api#get-suppliers
  * Get a list of supplier codes and names to use in GET /suppliers/usage/:code/:usage
  */
-export function useSuppliers() {
+export function useSuppliers(): UseSuppliersUsageResponse {
 	const { data, error } = useSWR<SuppliersApiResponse, Error>(`suppliers`);
 
 	return {

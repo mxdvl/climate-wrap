@@ -4,6 +4,8 @@ import type { CarbonItem } from './components/CarbonItems';
 interface ApplicationState {
 	travel: {
 		flights: number;
+		cars: number;
+		commute: number;
 	};
 	social: {
 		diet: number;
@@ -23,17 +25,30 @@ interface Store {
 export const carbonPerKm = {
 	flight: 0.22, // kg CO2 / km
 	car: 0.19, // kg CO2 / km
+	commute: 0.02, // MADE UP VALUE!!
 };
 
 export const flightValues = {
-	maxKms: 50000,
-	avgKms: 11000,
+	maxKms: 55_000,
+	avgKms: 11_000,
+};
+
+export const carValues = {
+	maxKms: 20_000,
+	avgKms: 4_000,
+};
+
+export const commuteValues = {
+	maxKms: 30_000,
+	avgKms: 6_000,
 };
 
 export const initState = (): ApplicationState => {
 	return {
 		travel: {
 			flights: flightValues.avgKms * carbonPerKm.flight,
+			cars: carValues.avgKms * carbonPerKm.car,
+			commute: commuteValues.avgKms * carbonPerKm.commute,
 		},
 
 		social: {
