@@ -144,7 +144,7 @@ export const Home = (): JSX.Element => {
 						<Gauge
 							score={(supplierFuelMix?.CO2 ?? 0) / maxAll}
 							title="How does your supplier compare to the average CO2 emissions?"
-							average={average}
+							average={average / maxAll}
 						/>
 					</Center>
 				</HStack>
