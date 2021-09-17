@@ -1,5 +1,6 @@
 import React from 'react';
 import type { CarbonItem } from './components/CarbonItems';
+import type { Suppliers } from './hooks/climateWrapped';
 
 interface ApplicationState {
 	travel: {
@@ -8,6 +9,10 @@ interface ApplicationState {
 	social: {
 		diet: number;
 	};
+	home: {
+		selectedCompany: string;
+	};
+
 	carbonItems: CarbonItem[];
 }
 
@@ -26,50 +31,56 @@ export const flightValues = {
 	avgKms: 11000,
 };
 
-export const initState: ApplicationState = {
-	travel: {
-		flights: flightValues.avgKms * carbonPerKm.flight,
-	},
+export const initState = (): ApplicationState => {
+	return {
+		travel: {
+			flights: flightValues.avgKms * carbonPerKm.flight,
+		},
 
-	social: {
-		diet: 0,
-	},
+		social: {
+			diet: 0,
+		},
 
-	carbonItems: [
-		{
-			name: 'Vegan',
-			section: 'social',
-			emoji: '🥦',
-			co2: 1400,
+		home: {
+			selectedCompany: '',
 		},
-		{
-			name: 'Meat',
-			section: 'social',
-			emoji: '🥩',
-			co2: 2600,
-		},
-		{
-			name: 'Vegetarian',
-			section: 'social',
-			emoji: '🥛',
-			co2: 1800,
-		},
-		{
-			name: 'Pescetarian',
-			section: 'social',
-			emoji: '🐡',
-			co2: 2200,
-		},
-	],
+
+		carbonItems: [
+			{
+				name: 'Vegan',
+				section: 'social',
+				emoji: '🥦',
+				co2: 1400,
+			},
+			{
+				name: 'Meat',
+				section: 'social',
+				emoji: '🥩',
+				co2: 2600,
+			},
+			{
+				name: 'Vegetarian',
+				section: 'social',
+				emoji: '🥛',
+				co2: 1800,
+			},
+			{
+				name: 'Pescetarian',
+				section: 'social',
+				emoji: '🐡',
+				co2: 2200,
+			},
+		],
+	};
 };
 
 export const CarbonEmissionsContext = React.createContext<Store>({
-	state: initState,
+	state: initState(),
 	setState: () => null,
 });
 
 export const CarbonEmissionsStateProvider: React.FC = ({ children }) => {
-	const [state, setState] = React.useState(initState);
+	const [state, setState] = React.useState(initState());
 
 	return (
 		<CarbonEmissionsContext.Provider
