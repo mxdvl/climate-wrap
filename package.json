@@ -40,7 +40,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint src",
-    "prettier": "prettier . --check"
+    "prettier": "prettier . --check",
+    "tar": "tar -cvf ./deploy.tar --exclude='*.map' ./captain-definition ./build/*",
+    "deploy": "npm run build && npm run tar && caprover deploy -t ./deploy.tar"
   },
   "browserslist": {
     "production": [
