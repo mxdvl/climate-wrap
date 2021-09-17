@@ -79,7 +79,7 @@ export const App = (): JSX.Element => {
 		Social: <Social />,
 		Spending: <Spending />,
 		Travel: <Travel />,
-		Overview: <Overview />,
+		Overview: <Overview setStep={setStep} />,
 		Home: <Home />,
 		Community: <Community />,
 	};

@@ -1,5 +1,6 @@
 import {
 	Box,
+	Button,
 	Heading,
 	Slider,
 	SliderFilledTrack,
@@ -10,7 +11,9 @@ import {
 	Wrap,
 	WrapItem,
 } from '@chakra-ui/react';
+import { useSteps } from 'chakra-ui-steps';
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import type { Section, SectionType } from './Sections';
 import { sections } from './Sections';
 
@@ -40,11 +43,15 @@ const getTotal = (consumptions: Consumptions) => {
 
 const numeric = (a: number, b: number) => b - a;
 
-export const Overview = (): JSX.Element => {
+export const Overview = ({
+	setStep,
+}: {
+	setStep: (step: number) => void;
+}): JSX.Element => {
 	const [consumptions, setConsumptions] = useState(defaultConsumptions);
-
 	const total = getTotal(consumptions);
 	const emoji = sections.overview.emoji;
+
 	return (
 		<Stack spacing="4" mt="4">
 			<Heading as="h3" textAlign="center" size="3xl">
@@ -65,9 +72,17 @@ export const Overview = (): JSX.Element => {
 
 						if (id == 'community') return;
 						if (id === 'overview') return;
-
+						const sectionIds = Object.keys(sections);
 						return (
 							<WrapItem
+								as={Button}
+								variant="unstyled"
+								onClick={() => {
+									const indexOfPath = sectionIds.indexOf(id);
+									const step =
+										indexOfPath > -1 ? indexOfPath : 0;
+									setStep(step);
+								}}
 								key={id}
 								order={order === 1 ? -1 : order % 4}
 								width={width}
