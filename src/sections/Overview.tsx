@@ -47,7 +47,8 @@ const numeric = (a: number, b: number) => b - a;
 export const Overview = (): JSX.Element => {
 	const [consumptions, setConsumptions] = useState(defaultConsumptions);
 
-	const total = getTotal(consumptions);
+	// const total = getTotal(consumptions);
+	let total = 0;
 	const emoji = sections.overview.emoji;
 	return (
 		<Stack spacing="4" mt="4">
@@ -67,12 +68,13 @@ export const Overview = (): JSX.Element => {
 					m={4}
 					gap={'4px'}
 					gridAutoFlow="column dense"
+					gridAutoColumns={'18px'}
 				>
 					{[
 						[2, 1],
 						[5, 2],
-						[4, 2],
 						[3, 6],
+						[4, 2],
 						[2, 2],
 						[10, 4],
 						[2, 2],
@@ -80,8 +82,8 @@ export const Overview = (): JSX.Element => {
 						[6, 6],
 						[7, 7],
 						[1, 1],
-						[1, 1],
 						[3, 1],
+						[1, 1],
 						[1, 4],
 						[2, 4],
 						[2, 4],
@@ -89,10 +91,13 @@ export const Overview = (): JSX.Element => {
 						[4, 1],
 					].map((size, index) => {
 						const randomSize = [
-							Math.floor(Math.random() * 5) + 1,
 							Math.floor(Math.random() * 4) + 1,
+							Math.floor(Math.random() * 3) + 1,
 						];
 						const [r, c] = Math.random() < 0.3 ? randomSize : size;
+
+						total += r * c;
+
 						const section = [
 							sections.spending,
 							sections.home,
@@ -112,6 +117,21 @@ export const Overview = (): JSX.Element => {
 							</GridItem>
 						);
 					})}
+					{Array(300 - total)
+						.fill(Array.from('🌳🌳🌳🌳🌲🌲🌲🌴🌿🌵'))
+						.map((tree: string) => (
+							<GridItem rowSpan={1} colSpan={1}>
+								<Center h={'100%'}>
+									{
+										tree[
+											Math.floor(
+												Math.random() * tree.length,
+											)
+										]
+									}
+								</Center>
+							</GridItem>
+						))}
 				</Grid>
 			</Center>
 		</Stack>
