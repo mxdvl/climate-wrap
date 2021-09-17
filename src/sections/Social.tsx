@@ -2,13 +2,12 @@ import { Box, Heading, Radio, RadioGroup, Stack } from '@chakra-ui/react';
 import React from 'react';
 import { CarbonItemWithGrid } from '../components/CarbonItems';
 import { CarbonEmissionsContext } from '../State';
-import { sections } from './Sections';
 
 export const Social = (): JSX.Element => {
 	// const [diet, setDiet] = React.useState('1');
 	const { state, setState } = React.useContext(CarbonEmissionsContext);
 	const { carbonItems, social } = state;
-	console.log(carbonItems);
+
 	return (
 		<Stack spacing="4" mt="4" dir="horizontal">
 			<Box>
