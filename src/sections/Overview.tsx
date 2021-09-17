@@ -1,5 +1,8 @@
 import {
 	Box,
+	Center,
+	Grid,
+	GridItem,
 	Heading,
 	Slider,
 	SliderFilledTrack,
@@ -11,6 +14,7 @@ import {
 	WrapItem,
 } from '@chakra-ui/react';
 import { useState } from 'react';
+import grid from '../grid.svg';
 import type { Section, SectionType } from './Sections';
 import { sections } from './Sections';
 
@@ -50,109 +54,66 @@ export const Overview = (): JSX.Element => {
 			<Heading as="h3" textAlign="center" size="3xl">
 				Overview {emoji}
 			</Heading>
-			<Box bg={theme.colors.gray[100]}>
-				<Wrap spacing={2} align="center" justify="center" width="100%">
-					{Object.entries(sections).map((entry) => {
-						const [id, section] = entry as [SectionType, Section];
-						const consumption = consumptions[id];
-						const width = `${1.8 * 100 * (consumption / total)}%`;
-						const height = '40%';
-						const order =
-							Object.values(consumptions)
-								.filter((v) => v > 0)
-								.sort(numeric)
-								.indexOf(consumption) + 1;
-
-						if (id == 'community') return;
-						if (id === 'overview') return;
-
+			<Center>
+				<Grid
+					bg={theme.colors.gray[100]}
+					templateColumns={'repeat(30, 32px)'}
+					templateRows="repeat(10, 32px)"
+					bgImage={grid}
+					bgSize={36}
+					bgPos={'2px 2px'}
+					p={'4px'}
+					w={'min-content'}
+					m={4}
+					gap={'4px'}
+					gridAutoFlow="column dense"
+				>
+					{[
+						[2, 1],
+						[5, 2],
+						[4, 2],
+						[3, 6],
+						[2, 2],
+						[10, 4],
+						[2, 2],
+						[6, 6],
+						[6, 6],
+						[7, 7],
+						[1, 1],
+						[1, 1],
+						[3, 1],
+						[1, 4],
+						[2, 4],
+						[2, 4],
+						[1, 1],
+						[4, 1],
+					].map((size, index) => {
+						const randomSize = [
+							Math.floor(Math.random() * 5) + 1,
+							Math.floor(Math.random() * 4) + 1,
+						];
+						const [r, c] = Math.random() < 0.3 ? randomSize : size;
+						const section = [
+							sections.spending,
+							sections.home,
+							sections.social,
+							sections.travel,
+						][index % 4];
+						const { colour } = section;
 						return (
-							<WrapItem
-								key={id}
-								order={order === 1 ? -1 : order % 4}
-								width={width}
-								height={height}
+							<GridItem
+								rowSpan={r}
+								colSpan={c}
+								bg={colour[100]}
+								border={'2px solid '}
+								borderColor={colour[400]}
 							>
-								<Box
-									padding={1}
-									margin={1}
-									width="100%"
-									height="100%"
-									background={section.colour}
-									flexWrap="wrap"
-								>
-									<Heading as="h4">{section.name}</Heading>
-									{section.description}
-
-									<Heading as="h5">
-										{consumption} Kg CO<sub>2</sub>
-									</Heading>
-								</Box>
-							</WrapItem>
+								<Center h={'100%'}>{index}</Center>
+							</GridItem>
 						);
 					})}
-				</Wrap>
-
-				<Slider
-					value={consumptions.travel}
-					min={1}
-					max={2000}
-					onChange={(value) => {
-						setConsumptions({ ...consumptions, travel: value });
-						return value;
-					}}
-				>
-					<SliderTrack>
-						<SliderFilledTrack bg={sections.travel.colour} />
-					</SliderTrack>
-					<SliderThumb />
-				</Slider>
-
-				<Slider
-					value={consumptions.home}
-					min={1}
-					max={2000}
-					onChange={(value) => {
-						setConsumptions({ ...consumptions, home: value });
-						return value;
-					}}
-				>
-					<SliderTrack>
-						<SliderFilledTrack bg={sections.home.colour} />
-					</SliderTrack>
-					<SliderThumb />
-				</Slider>
-
-				<Slider
-					defaultValue={consumptions.spending}
-					min={1}
-					max={2000}
-					onChange={(value) => {
-						setConsumptions({ ...consumptions, spending: value });
-						return value;
-					}}
-				>
-					<SliderTrack>
-						<SliderFilledTrack bg={sections.spending.colour} />
-					</SliderTrack>
-					<SliderThumb />
-				</Slider>
-
-				<Slider
-					value={consumptions.social}
-					min={1}
-					max={2000}
-					onChange={(value) => {
-						setConsumptions({ ...consumptions, social: value });
-						return value;
-					}}
-				>
-					<SliderTrack>
-						<SliderFilledTrack bg={sections.social.colour} />
-					</SliderTrack>
-					<SliderThumb />
-				</Slider>
-			</Box>
+				</Grid>
+			</Center>
 		</Stack>
 	);
 };

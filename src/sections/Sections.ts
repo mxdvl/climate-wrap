@@ -1,8 +1,9 @@
+import type { ColorHues } from '@chakra-ui/react';
 import { theme } from '@chakra-ui/react';
 
 export type Section = {
 	name: string;
-	colour: string;
+	colour: ColorHues;
 	emoji: string;
 	description: string;
 };
@@ -19,37 +20,37 @@ export const sections: Record<SectionType, Section> = {
 	travel: {
 		name: 'Travel',
 		description: 'Communting, holidays, vehicles',
-		colour: theme.colors.cyan[100],
+		colour: theme.colors.cyan,
 		emoji: '✈️',
 	},
 	community: {
 		name: 'Community',
 		description: 'Local politics, actions together',
-		colour: theme.colors.teal[100],
+		colour: theme.colors.teal,
 		emoji: '💬',
 	},
 	home: {
 		name: 'Home',
-		colour: theme.colors.pink[100],
+		colour: theme.colors.yellow,
 		description: 'Housing, energy sources',
 		emoji: '🏡',
 	},
 	spending: {
 		name: 'Spending',
 		description: 'Stuff you own or buy',
-		colour: theme.colors.white,
+		colour: theme.colors.red,
 		emoji: '💸',
 	},
 	social: {
 		name: 'Social',
 		emoji: '👪',
 		description: 'Family size, pets, etc.',
-		colour: theme.colors.orange[100],
+		colour: theme.colors.orange,
 	},
 	overview: {
 		name: 'Overview',
 		emoji: '🔎',
 		description: '',
-		colour: theme.colors.purple[100],
+		colour: theme.colors.purple,
 	},
 };
