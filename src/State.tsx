@@ -15,6 +15,11 @@ interface ApplicationState {
 		selectedCompany: string;
 	};
 
+	spending: Array<{
+		used: boolean;
+		item: CarbonItem;
+	}>;
+
 	carbonItems: CarbonItem[];
 }
 
@@ -59,6 +64,36 @@ export const initState = (): ApplicationState => {
 		home: {
 			selectedCompany: '',
 		},
+
+		spending: [
+			{
+				used: false,
+				item: {
+					name: 'new phone who dis',
+					co2: 80, // iPhone
+					emoji: '📱',
+					section: 'spending',
+				},
+			},
+			{
+				used: false,
+				item: {
+					name: 'new jeans',
+					co2: 33, // based on Levis’s 501
+					emoji: '👖',
+					section: 'spending',
+				},
+			},
+			{
+				used: false,
+				item: {
+					name: 'shirt',
+					co2: 20, // No idea
+					emoji: '👕',
+					section: 'spending',
+				},
+			},
+		],
 
 		carbonItems: [
 			{
