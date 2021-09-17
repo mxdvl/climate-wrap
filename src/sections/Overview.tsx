@@ -50,13 +50,13 @@ export const Overview = ({
 			name: 'cars',
 			co2: state.travel.cars,
 			section: 'travel',
-			emoji: 'C',
+			emoji: '🚗',
 		},
 		{
 			name: 'commute',
 			co2: state.travel.commute,
 			section: 'travel',
-			emoji: 'T',
+			emoji: '🚆',
 		},
 	];
 
