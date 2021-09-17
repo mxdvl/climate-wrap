@@ -57,14 +57,14 @@ export const Overview = (): JSX.Element => {
 	const sorted = items.sort((a, b) => numeric(a.co2, b.co2));
 
 	return (
-		<Stack spacing="4" mt="4">
+		<Stack spacing="6" mt="4">
 			<Heading as="h3" textAlign="center" size="3xl">
 				Overview {emoji}
 			</Heading>
 			<Center>
 				<Box>Each block represents 10 kg CO2e</Box>
 			</Center>
-			<Center>
+			<Center m={4}>
 				<Grid
 					bg={theme.colors.gray[100]}
 					templateColumns={`repeat(52, ${gridSize}px)`}
@@ -74,7 +74,6 @@ export const Overview = (): JSX.Element => {
 					bgPos={`${gapSize}px ${gapSize}px`}
 					p={`${1 + gapSize}px`}
 					w={'min-content'}
-					m={4}
 					gap={`${gapSize}px`}
 					gridAutoFlow="column dense"
 					gridAutoColumns={`${backgroundSize}px`}
@@ -107,10 +106,12 @@ export const Overview = (): JSX.Element => {
 						))}
 				</Grid>
 			</Center>
-			<Box>
-				You have {1040 - Math.floor(total)} kg CO2e left to meet UK 2045
-				carbon zero targets
-			</Box>
+			<Center>
+				<Box marginBottom={6}>
+					For 2021, you have {1040 - Math.floor(total)} kg CO2e left
+					to meet the UK’s 2045 net-zero carbon target.
+				</Box>
+			</Center>
 		</Stack>
 	);
 };

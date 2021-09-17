@@ -1,4 +1,5 @@
 import { Box, Center, Grid, GridItem } from '@chakra-ui/layout';
+import theme from '@chakra-ui/theme';
 import { svgBackgroundImage } from '@guardian/src-helpers';
 import type { SectionType } from '../sections/Sections';
 import { sections } from '../sections/Sections';
@@ -10,13 +11,13 @@ export type CarbonItem = {
 	section: SectionType;
 };
 
-const gridSize = 24;
+const gridSize = 22;
 const gapSize = 2;
 const backgroundSize = gridSize + gapSize;
 
 const grid = svgBackgroundImage(`
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${backgroundSize} ${backgroundSize}">
-			<g fill="#abc">
+			<g fill="${theme.colors.gray[400]}">
 				<circle cx="0" cy="0" r="1" />
 				<circle cx="${backgroundSize}" cy="0" r="1" />
 				<circle cx="0" cy="${backgroundSize}" r="1" />
