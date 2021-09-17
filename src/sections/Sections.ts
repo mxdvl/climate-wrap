@@ -31,7 +31,7 @@ export const sections: Record<SectionType, Section> = {
 	},
 	home: {
 		name: 'Home',
-		colour: theme.colors.pink,
+		colour: theme.colors.purple,
 		description: 'Housing, energy sources',
 		emoji: '🏡',
 	},
@@ -51,6 +51,6 @@ export const sections: Record<SectionType, Section> = {
 		name: 'Overview',
 		emoji: '🔎',
 		description: '',
-		colour: theme.colors.purple,
+		colour: theme.colors.green,
 	},
 };
