@@ -58,6 +58,7 @@ export const Overview = ({
 			section: 'travel',
 			emoji: '🚆',
 		},
+		...state.spending.filter((i) => i.used).map((v) => v.item),
 	];
 
 	let total = 0;
