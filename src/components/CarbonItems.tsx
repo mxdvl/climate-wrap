@@ -32,7 +32,7 @@ type Size = [number, number];
 
 const boxFromCarbon = (co2: number): Size => {
 	const blocks = Math.round(co2 / 10);
-	const width = Math.floor(Math.sqrt(blocks)) || 1;
+	const width = Math.round(Math.sqrt(blocks)) || 1;
 	const height = Math.round(blocks / width) || 1;
 
 	return [width, height];
@@ -58,22 +58,34 @@ const CarbonItemBox = ({ item }: { item: CarbonItem }): JSX.Element => {
 				>
 					{item.emoji}
 				</Box>
-				<Box textAlign="center">{item.name}</Box>
+				{rows > 2 && cols > 1 ? (
+					<Box textAlign="center">{item.name}</Box>
+				) : null}
 			</Center>
 		</GridItem>
 	);
 };
 
-const CarbonItemWithGrid = ({ item }: { item: CarbonItem }) => {
+const CarbonItemWithGrid = ({ item }: { item: CarbonItem }): JSX.Element => {
 	return (
-		<Grid>
-			<CarbonItemBox item={item} />;
+		<Grid
+			bg={grid}
+			bgSize={backgroundSize}
+			bgPos={`${gapSize}px ${gapSize}px`}
+			padding={`${1 + gapSize}px`}
+			autoColumns={`${gridSize}px`}
+			autoRows={`${gridSize}px`}
+			gap={`${gapSize}px`}
+			width="min-content"
+		>
+			<CarbonItemBox item={item} />
 		</Grid>
 	);
 };
 
 export {
 	CarbonItemBox,
+	CarbonItemWithGrid,
 	boxFromCarbon,
 	approximate,
 	gridSize,

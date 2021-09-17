@@ -12,6 +12,7 @@ import {
 	backgroundSize,
 	boxFromCarbon,
 	CarbonItemBox,
+	CarbonItemWithGrid,
 	gapSize,
 	grid,
 	gridSize,
@@ -85,7 +86,7 @@ export const Overview = (): JSX.Element => {
 					})}
 
 					{Array(Math.max(0, 1040 - Math.floor(total)))
-						.fill(Array.from('🌳🌳🌳🌳🌲🌲🌲🌴🌿🌵'))
+						.fill(Array.from('🌳🌳🌳🌳🌳🌳🌲🌲🌲🌲🌴🌿🌵'))
 						.map((tree: string, index) => (
 							<GridItem
 								key={index}
@@ -112,6 +113,95 @@ export const Overview = (): JSX.Element => {
 					to meet the UK’s 2045 net-zero carbon target.
 				</Box>
 			</Center>
+
+			<CarbonItemWithGrid
+				item={{
+					co2: 500,
+					name: 'something',
+					emoji: '5',
+					section: 'travel',
+				}}
+			/>
+			<CarbonItemWithGrid
+				item={{
+					co2: 10,
+					name: '10',
+					emoji: '1',
+					section: 'home',
+				}}
+			/>
+			<CarbonItemWithGrid
+				item={{
+					co2: 20,
+					name: '20',
+					emoji: '2',
+					section: 'home',
+				}}
+			/>
+			<CarbonItemWithGrid
+				item={{
+					co2: 30,
+					name: '30',
+					emoji: '3',
+					section: 'home',
+				}}
+			/>
+			<CarbonItemWithGrid
+				item={{
+					co2: 40,
+					name: '40',
+					emoji: '4',
+					section: 'home',
+				}}
+			/>
+			<CarbonItemWithGrid
+				item={{
+					co2: 50,
+					name: '50',
+					emoji: '5',
+					section: 'home',
+				}}
+			/>
+			<CarbonItemWithGrid
+				item={{
+					co2: 60,
+					name: '60',
+					emoji: '6',
+					section: 'home',
+				}}
+			/>
+			<CarbonItemWithGrid
+				item={{
+					co2: 70,
+					name: '70',
+					emoji: '7',
+					section: 'home',
+				}}
+			/>
+			<CarbonItemWithGrid
+				item={{
+					co2: 80,
+					name: '80',
+					emoji: '8',
+					section: 'home',
+				}}
+			/>
+			<CarbonItemWithGrid
+				item={{
+					co2: 90,
+					name: '90',
+					emoji: '9',
+					section: 'home',
+				}}
+			/>
+			<CarbonItemWithGrid
+				item={{
+					co2: 100,
+					name: '100',
+					emoji: '2',
+					section: 'home',
+				}}
+			/>
 		</Stack>
 	);
 };

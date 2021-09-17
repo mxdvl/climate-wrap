@@ -20,7 +20,7 @@ export const sections: Record<SectionType, Section> = {
 	travel: {
 		name: 'Travel',
 		description: 'Communting, holidays, vehicles',
-		colour: theme.colors.cyan,
+		colour: theme.colors.red,
 		emoji: '✈️',
 	},
 	community: {
@@ -31,21 +31,21 @@ export const sections: Record<SectionType, Section> = {
 	},
 	home: {
 		name: 'Home',
-		colour: theme.colors.yellow,
+		colour: theme.colors.pink,
 		description: 'Housing, energy sources',
 		emoji: '🏡',
 	},
 	spending: {
 		name: 'Spending',
 		description: 'Stuff you own or buy',
-		colour: theme.colors.red,
+		colour: theme.colors.orange,
 		emoji: '💸',
 	},
 	social: {
 		name: 'Social',
 		emoji: '👪',
 		description: 'Family size, pets, etc.',
-		colour: theme.colors.orange,
+		colour: theme.colors.yellow,
 	},
 	overview: {
 		name: 'Overview',
