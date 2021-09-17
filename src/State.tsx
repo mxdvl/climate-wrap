@@ -1,9 +1,11 @@
 import React from 'react';
+import type { CarbonItem } from './components/CarbonItems';
 
 interface ApplicationState {
 	travel: {
 		flights: number;
 	};
+	carbonItems: CarbonItem[];
 }
 
 interface Store {
@@ -15,6 +17,7 @@ export const initState: ApplicationState = {
 	travel: {
 		flights: 100,
 	},
+	carbonItems: [],
 };
 
 export const CarbonEmissionsContext = React.createContext<Store>({
@@ -24,6 +27,7 @@ export const CarbonEmissionsContext = React.createContext<Store>({
 
 export const CarbonEmissionsStateProvider: React.FC = ({ children }) => {
 	const [state, setState] = React.useState(initState);
+
 	return (
 		<CarbonEmissionsContext.Provider
 			value={{ state, setState }}

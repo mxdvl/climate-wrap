@@ -1,4 +1,4 @@
-import { boxFromCarbon } from './Overview';
+import { boxFromCarbon } from '../components/CarbonItems';
 
 describe('boxFromCarbon', () => {
 	it.each([

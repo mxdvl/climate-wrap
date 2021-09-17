@@ -4,94 +4,51 @@ import {
 	Grid,
 	GridItem,
 	Heading,
-	Slider,
-	SliderFilledTrack,
-	SliderThumb,
-	SliderTrack,
 	Stack,
 	theme,
-	Wrap,
-	WrapItem,
 } from '@chakra-ui/react';
 import { svgBackgroundImage } from '@guardian/src-helpers';
-import { useState } from 'react';
-import ReactDOM from 'react-dom';
-import type { Section, SectionType } from './Sections';
+import type { CarbonItem } from '../components/CarbonItems';
+import { boxFromCarbon, CarbonItemBox } from '../components/CarbonItems';
 import { sections } from './Sections';
 
-type Consumptions = Record<SectionType, number>;
-
-const defaultConsumptions: Consumptions = {
-	travel: 600,
-	home: 1800,
-	spending: 500,
-	social: 1200,
-	community: 0,
-	overview: 0,
-};
-
-const getTotal = (consumptions: Consumptions) => {
-	const real = Object.values(consumptions).reduce(
-		(total, add) => total + add,
-	);
-	const values = Object.values(consumptions)
-		.filter((v) => v > 0)
-		.sort(numeric);
-	const [one, two, three, four] = values;
-	const visual = Math.max(one + four, two + three) * 2;
-
-	return Math.max(real, visual);
-};
-
-const rand = (min: number, max: number) =>
-	Math.floor(Math.random() * (max - min)) + min;
-
 const numeric = (a: number, b: number) => b - a;
-
-type Size = [number, number];
-const boxFromCarbon = (co2: number): Size => {
-	const blocks = Math.round(co2 / 10);
-	const width = Math.floor(Math.sqrt(blocks)) || 1;
-	const height = Math.round(blocks / width) || 1;
-
-	console.log(co2, blocks, [width, height]);
-
-	return [width, height];
-};
 
 export const Overview = (): JSX.Element => {
 	// const total = getTotal(consumptions);
 	let total = 0;
 	const emoji = sections.overview.emoji;
 
-	const items: Size[] = [
-		boxFromCarbon(2500), // long-haul flight
+	const items: CarbonItem[] = [
+		{
+			name: 'long-haul flight',
+			emoji: '✈️',
+			co2: 2500,
+			section: 'travel',
+		},
 
-		boxFromCarbon(1400), // plant-based diet (base)
-		boxFromCarbon(1200), // meat diet
+		{
+			name: 'basic plant-based diet',
+			emoji: '🥬',
+			co2: 1400,
+			section: 'social',
+		},
+		{
+			name: 'meat diet',
+			emoji: '🥩',
+			co2: 1200,
+			section: 'social',
+		},
 
-		boxFromCarbon(100),
-		boxFromCarbon(100),
-		boxFromCarbon(100),
-		boxFromCarbon(100),
-		boxFromCarbon(100),
-		boxFromCarbon(100),
-
-		boxFromCarbon(150),
-		boxFromCarbon(150),
-		boxFromCarbon(150),
-		boxFromCarbon(150),
-
-		boxFromCarbon(250),
-		boxFromCarbon(250),
-		boxFromCarbon(250),
-
-		// boxFromCarbon(rand(100, 2500)),
+		{
+			name: 'coffee beans',
+			emoji: '☕',
+			co2: Math.ceil(0.28 * 365 * 1.2),
+			section: 'spending',
+		},
 	];
 
-	const sorted = items.sort((a: Size, b: Size) =>
-		numeric(a[0] * a[1], b[0] * b[1]),
-	);
+	const sorted = items.sort((a, b) => numeric(a.co2, b.co2));
 
 	const gridSize = 24;
 	const gapSize = 2;
@@ -130,30 +87,10 @@ export const Overview = (): JSX.Element => {
 					gridAutoFlow="column dense"
 					gridAutoColumns={`${backgroundSize}px`}
 				>
-					{sorted.map((size, index) => {
-						const [r, c] = size;
-
-						total += r * c;
-
-						const section = [
-							sections.spending,
-							sections.home,
-							sections.social,
-							sections.travel,
-						][index % 4];
-						const { colour } = section;
-						return (
-							<GridItem
-								rowSpan={r}
-								colSpan={c}
-								bg={colour[100]}
-								borderRadius={6}
-								border={'2px solid '}
-								borderColor={colour[400]}
-							>
-								<Center h={'100%'}>{index}</Center>
-							</GridItem>
-						);
+					{sorted.map((item, index) => {
+						const [rows, columns] = boxFromCarbon(item.co2);
+						total += rows * columns;
+						return <CarbonItemBox key={index} item={item} />;
 					})}
 
 					{Array(Math.max(0, 1040 - Math.floor(total)))
@@ -178,9 +115,10 @@ export const Overview = (): JSX.Element => {
 						))}
 				</Grid>
 			</Center>
-			<Box>Leftover Carbon = {1040 - Math.floor(total)}</Box>
+			<Box>
+				You have {1040 - Math.floor(total)} kg CO2e left to meet UK 2045
+				carbon zero targets
+			</Box>
 		</Stack>
 	);
 };
-
-export { boxFromCarbon };
