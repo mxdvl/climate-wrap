@@ -1,5 +1,4 @@
 import useSWR from 'swr';
-import { isInterfaceDeclaration } from 'typescript';
 
 interface Vote {
 	general: string;
@@ -93,7 +92,7 @@ export interface Supplier {
 	name: string;
 }
 
-type Suppliers = Supplier[];
+export type Suppliers = Supplier[];
 
 interface SuppliersApiResponse {
 	suppliers: Suppliers;
@@ -103,7 +102,7 @@ interface SuppliersApiResponse {
  * https://github.com/coldlink/climate-wrapped-api#get-suppliers
  * Get a list of supplier codes and names to use in GET /suppliers/usage/:code/:usage
  */
-function useSuppliers() {
+export function useSuppliers() {
 	const { data, error } = useSWR<SuppliersApiResponse, Error>(`suppliers`);
 
 	return {

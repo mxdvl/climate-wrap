@@ -1,13 +1,20 @@
 import React from 'react';
 import type { CarbonItem } from './components/CarbonItems';
+import type { Suppliers } from './hooks/climateWrapped';
 
 interface ApplicationState {
 	travel: {
 		flights: number;
+		cars: number;
+		commute: number;
 	};
 	social: {
 		diet: number;
 	};
+	home: {
+		selectedCompany: string;
+	};
+
 	carbonItems: CarbonItem[];
 }
 
@@ -19,57 +26,76 @@ interface Store {
 export const carbonPerKm = {
 	flight: 0.22, // kg CO2 / km
 	car: 0.19, // kg CO2 / km
+	commute: 0.02, // MADE UP VALUE!!
 };
 
 export const flightValues = {
-	maxKms: 50000,
-	avgKms: 11000,
+	maxKms: 55_000,
+	avgKms: 11_000,
 };
 
-export const initState: ApplicationState = {
-	travel: {
-		flights: flightValues.avgKms * carbonPerKm.flight,
-	},
+export const carValues = {
+	maxKms: 20_000,
+	avgKms: 4_000,
+};
 
-	social: {
-		diet: 0,
-	},
+export const commuteValues = {
+	maxKms: 30_000,
+	avgKms: 6_000,
+};
 
-	carbonItems: [
-		{
-			name: 'Vegan',
-			section: 'social',
-			emoji: '🥦',
-			co2: 1400,
+export const initState = (): ApplicationState => {
+	return {
+		travel: {
+			flights: flightValues.avgKms * carbonPerKm.flight,
+			cars: carValues.avgKms * carbonPerKm.car,
+			commute: commuteValues.avgKms * carbonPerKm.commute,
 		},
-		{
-			name: 'Meat',
-			section: 'social',
-			emoji: '🥩',
-			co2: 2600,
+
+		social: {
+			diet: 0,
 		},
-		{
-			name: 'Vegetarian',
-			section: 'social',
-			emoji: '🥛',
-			co2: 1800,
+
+		home: {
+			selectedCompany: '',
 		},
-		{
-			name: 'Pescetarian',
-			section: 'social',
-			emoji: '🐡',
-			co2: 2200,
-		},
-	],
+
+		carbonItems: [
+			{
+				name: 'Vegan',
+				section: 'social',
+				emoji: '🥦',
+				co2: 1400,
+			},
+			{
+				name: 'Meat',
+				section: 'social',
+				emoji: '🥩',
+				co2: 2600,
+			},
+			{
+				name: 'Vegetarian',
+				section: 'social',
+				emoji: '🥛',
+				co2: 1800,
+			},
+			{
+				name: 'Pescetarian',
+				section: 'social',
+				emoji: '🐡',
+				co2: 2200,
+			},
+		],
+	};
 };
 
 export const CarbonEmissionsContext = React.createContext<Store>({
-	state: initState,
+	state: initState(),
 	setState: () => null,
 });
 
 export const CarbonEmissionsStateProvider: React.FC = ({ children }) => {
-	const [state, setState] = React.useState(initState);
+	const [state, setState] = React.useState(initState());
 
 	return (
 		<CarbonEmissionsContext.Provider
