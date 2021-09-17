@@ -1,6 +1,5 @@
 import React from 'react';
 import type { CarbonItem } from './components/CarbonItems';
-import type { Suppliers } from './hooks/climateWrapped';
 
 interface ApplicationState {
 	travel: {
@@ -10,7 +9,7 @@ interface ApplicationState {
 		diet: number;
 	};
 	home: {
-		selectedCompany: string;
+		selectedSupplier: string;
 	};
 
 	carbonItems: CarbonItem[];
@@ -42,7 +41,7 @@ export const initState = (): ApplicationState => {
 		},
 
 		home: {
-			selectedCompany: '',
+			selectedSupplier: '',
 		},
 
 		carbonItems: [

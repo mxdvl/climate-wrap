@@ -1,5 +1,15 @@
-import { Box, Heading, Select, Stack } from '@chakra-ui/react';
-import React from 'react';
+import {
+	Box,
+	Divider,
+	Heading,
+	HStack,
+	Select,
+	Spacer,
+	Stack,
+	Text,
+} from '@chakra-ui/react';
+import React, { ChangeEventHandler } from 'react';
+import type { Supplier, SupplierFuelMix } from '../hooks/climateWrapped';
 import {
 	useCarbonIntensity,
 	useMp,
@@ -10,9 +20,72 @@ import {
 } from '../hooks/climateWrapped';
 import { CarbonEmissionsContext } from '../State';
 
+interface SupplierInfoPanelProps {
+	supplier: Supplier;
+	fuelMix?: SupplierFuelMix;
+}
+const SupplierInfoPanel: React.FC<SupplierInfoPanelProps> = ({
+	supplier,
+	fuelMix,
+}) => {
+	const year = fuelMix?.year;
+	return (
+		<Stack spacing="1">
+			<Heading size="lg">
+				How did{' '}
+				<Text as="span" color="red">
+					{supplier.name}
+				</Text>{' '}
+				source their energy in {year}?
+			</Heading>
+			<Divider />
+			{Object.keys(fuelMix ?? {}).map((key) => {
+				if (key === 'supplier' || key === 'code' || key === 'year')
+					return;
+				const k = key.charAt(0).toUpperCase() + key.slice(1);
+				const v = fuelMix && fuelMix[key as keyof SupplierFuelMix];
+				const percentFiller =
+					key === 'year' || key === 'nuclear waste' ? '' : '%';
+				return (
+					<>
+						<HStack>
+							<Heading size="md">{k}</Heading>
+							<Spacer />
+							<Heading size="md">
+								{v}
+								{percentFiller}
+							</Heading>
+						</HStack>
+						<Divider />
+					</>
+				);
+			})}
+		</Stack>
+	);
+};
+
 export const Home = (): JSX.Element => {
 	const { state, setState } = React.useContext(CarbonEmissionsContext);
+	const { home } = state;
 	const { suppliers } = useSuppliers();
+
+	const supplier = suppliers?.filter(
+		(v) => v.code === home.selectedSupplier,
+	)[0];
+
+	const { supplier: supplierFuelMix } = useSupplierFuelMix(
+		supplier?.code ?? '',
+	);
+
+	const onChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+		setState({
+			...state,
+			home: {
+				...home,
+				selectedSupplier: event.target.value,
+			},
+		});
+	};
 
 	return (
 		<Stack spacing="4" mt="4">
@@ -20,17 +93,35 @@ export const Home = (): JSX.Element => {
 				<Heading as="h2" size="3xl" textAlign="center">
 					Home
 				</Heading>
-				<Stack>
-					<Heading as="h3" size="lg">
-						Find your supplier
-					</Heading>
-					<Select placeholder="Select option">
-						{suppliers?.map((supplier) => (
-							<option key={supplier.code} value={supplier.code}>
-								{supplier.name}
-							</option>
-						))}
-					</Select>
+				<Stack spacing="8" w="50%">
+					<Stack spacing="4">
+						<Heading as="h3" size="lg">
+							Find your supplier
+						</Heading>
+						<Divider />
+						<Select
+							placeholder="Select option"
+							value={home.selectedSupplier}
+							onChange={onChange}
+						>
+							{suppliers?.map((supplier) => (
+								<option
+									key={supplier.code}
+									value={supplier.code}
+								>
+									{supplier.name}
+								</option>
+							))}
+						</Select>
+					</Stack>
+					<Box>
+						{supplier && (
+							<SupplierInfoPanel
+								supplier={supplier}
+								fuelMix={supplierFuelMix}
+							/>
+						)}
+					</Box>
 				</Stack>
 			</Box>
 		</Stack>

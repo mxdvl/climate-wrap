@@ -1,3 +1,4 @@
+import type { KeyedMutator } from 'swr';
 import useSWR from 'swr';
 
 interface Vote {
@@ -151,6 +152,7 @@ interface UseSupplierFuelMixResponse {
 	supplier?: SupplierFuelMix;
 	isLoading: boolean;
 	isError: boolean;
+	mutate: KeyedMutator<SupplierFuelMix>;
 }
 
 // https://github.com/coldlink/climate-wrapped-api#get-suppliersfuel-mixcode
@@ -159,7 +161,7 @@ interface UseSupplierFuelMixResponse {
  *
  */
 export function useSupplierFuelMix(code: string): UseSupplierFuelMixResponse {
-	const { data, error } = useSWR<SupplierFuelMix, Error>(
+	const { data, error, mutate } = useSWR<SupplierFuelMix, Error>(
 		`suppliers/fuel-mix/${code}`,
 	);
 
@@ -167,6 +169,7 @@ export function useSupplierFuelMix(code: string): UseSupplierFuelMixResponse {
 		supplier: data,
 		isLoading: !error && !data,
 		isError: !!error,
+		mutate,
 	};
 }
 
