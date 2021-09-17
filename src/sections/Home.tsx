@@ -1,10 +1,16 @@
 import { Box, Heading, Stack } from '@chakra-ui/react';
 import useSWR from 'swr';
-import { useSuppliers, useSuppliersUsage } from '../hooks/climateWrapped';
+import {
+	useCarbonIntensity,
+	useMp,
+	useSupplierFuelMix,
+	useSuppliersFuelMix,
+	useSuppliersUsage,
+} from '../hooks/climateWrapped';
 
 export const Home = (): JSX.Element => {
-	const { emissions } = useSuppliersUsage('avro1', 3100);
-	console.log(emissions);
+	const { mpVotingRecord } = useMp('ip21 4rl');
+	console.log(mpVotingRecord);
 
 	return (
 		<Stack spacing="4" mt="4">
